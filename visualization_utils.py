@@ -7,21 +7,17 @@ from sklearn.metrics  import confusion_matrix
 # model: "bidir_dag_lstm" or "gs_lstm"
 # dataset: "train" or "validate" or "test"
 # analysis: "accuracy"or "entity"
-def load_data (model, dataset, analysis):
+def load_data (model, dataset):
 
     data_path = "../nary-grn/" + model + "/logs/" + dataset + "/result.json"
 
     with open(data_path) as f:
         json_file = json.load(f)
-            
-    if analysis == "accuracy":
-        answer = json_file["answer"]
-        output = json_file["output"]
-        return (answer, output)
-
-    elif analysis == "entity":
-        entity = json_file["entity"]
-        return entity
+    
+    answer = json_file["answer"]
+    output = json_file["output"]
+    entity = json_file["entity"]
+    return (answer, output, entity)
 
 # create confusion matrix to analyze the model's performance
 # in this case, 5
@@ -51,22 +47,24 @@ def get_tsne (entity):
 
     return transformed
 
+
 if __name__ == "__main__":
 
     model = ["bidir_dag_lstm", "gs_lstm"]
     dataset = ["validate", "test", "train"]
     # analysis = ["accuracy", "entity"]
-    for m in model:
+    for i in range(len(model)):
+        m = str(model[i])
         result_jsonify = {}
-        for d in dataset:
+        
+        for j in range(len(dataset)):
+            d = str(dataset[j])
             print("working on " + m +" & " + d)
 
-            answer, output = load_data(m, d, "accuracy")
+            answer, output, entity = load_data(m, d)
             confusion_matrix = get_confusion_matrix(answer, output)
             normalized_conf = normalize_confusion_matrix(confusion_matrix)
             accuracy = confusion_matrix_accuracy(confusion_matrix)
-                    
-            entity = load_data(m, d, "entity")
             tsne_values = get_tsne(entity)
 
         if d == "train":
