@@ -122,15 +122,21 @@ class ModelGraph(object):
                 [10*self.encoder_dim], dtype=tf.float32)
 
         w2 = tf.get_variable("w2",
-                [10*self.encoder_dim, options.class_num], dtype=tf.float32)
+                [10*self.encoder_dim, 10*self.encoder_dim], dtype=tf.float32)
         b2 = tf.get_variable("b2",
+                [10*self.encoder_dim], dtype=tf.float32)
+        
+        w3 = tf.get_variable("w3",
+                [10*self.encoder_dim, options.class_num], dtype=tf.float32)
+        b3 = tf.get_variable("b3",
                 [options.class_num], dtype=tf.float32)
 
         # hidden layer 1
-        hidden_out = tf.nn.relu(tf.matmul(entity_states, w1)+b1)
+        hidden_out1 = tf.nn.relu(tf.matmul(entity_states, w1)+b1)
+        hidden_out2 = tf.nn.relu(tf.matmul(hidden_out1, w2)+b2)
 
         # [batch, class_num]
-        prediction =  tf.nn.softmax(tf.matmul(hidden_out, w2) + b2)
+        prediction =  tf.nn.softmax(tf.matmul(hidden_out2, w3) + b3)
         prediction = _clip_and_normalize(prediction, 1.0e-6)
         self.output = tf.argmax(prediction,axis=-1,output_type=tf.int32)
 
