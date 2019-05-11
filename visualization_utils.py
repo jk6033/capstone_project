@@ -60,6 +60,8 @@ def analyze(model, dataset):
 
     result = {}
 
+    result["answer"] = answer
+    result["output"] = output
     result["confusion_matrix"] = confusion_matrix
     result["confusion_matrix_normalized"] = normalized_conf
     result["accuracy"] = accuracy
