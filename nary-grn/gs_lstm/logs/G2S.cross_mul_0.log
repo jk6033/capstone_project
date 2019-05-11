@@ -1,0 +1,9 @@
+<namespace_utils.Bunch object at 0x7fe68a07a0d0>
+Step 664: loss = 1.31 (58.132 sec)
+Dev loss = 30.9770
+Dev accu = 0.5550 111/200
+Duration 10.614 sec
+Step 1329: loss = 1.22 (68.250 sec)
+Dev loss = 29.5678
+Dev accu = 0.5700 114/200
+Duration 19.158 sec

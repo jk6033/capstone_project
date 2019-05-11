@@ -1,0 +1,2 @@
+model_checkpoint_path: "G2S.cross_mul_0.best.model"
+all_model_checkpoint_paths: "G2S.cross_mul_0.best.model"
