@@ -127,7 +127,7 @@ class ModelGraph(object):
                 [options.class_num], dtype=tf.float32)
 
         # hidden layer 1
-        hidden_out = tf.nn.relu(tf.add(tf.matmul(entity_states, w1)+b1))
+        hidden_out = tf.nn.relu(tf.matmul(entity_states, w1)+b1)
 
         # [batch, class_num]
         prediction =  tf.nn.softmax(tf.matmul(hidden_out, w2) + b2)
