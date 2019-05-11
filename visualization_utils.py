@@ -25,17 +25,17 @@ def get_confusion_matrix (answer, output, class_num=5):
     assert len(answer) == len(output)
     labels = np.asarray([i for i in range(class_num)])
     matrix = confusion_matrix(np.asarray(answer), np.asarray(output), labels=labels)
-    return matrix
+    return matrix.tolist()
 
 # utility functions for confusion matrix
 # axis: "col" or "row"
 def normalize_confusion_matrix (matrix, axis="col"):
     normalized = np.round(matrix.astype('float') / matrix.sum(axis=1)[:, np.newaxis], 2)
-    return normalized
+    return normalized.tolist()
 
 def confusion_matrix_accuracy (matrix):
     acc = round(np.trace(matrix)/np.sum(matrix), 4)
-    return acc
+    return [acc]
 
 def get_tsne (entity):
     X = np.asarray(entity)
