@@ -43,10 +43,10 @@ def confusion_matrix_accuracy (matrix):
 
 def get_tsne (entity):
     X = np.asarray(entity)
-    print("entity has a shape of", X.shape)
+    # print("entity has a shape of", X.shape)
 
     model = TSNE(learning_rate = 100)
-    print("calculating TSNE...")
+    # print("calculating TSNE...")
     transformed = model.fit_transform(X)
 
     return transformed
@@ -59,7 +59,7 @@ if __name__ == "__main__":
     for m in model:
         result_jsonify = {}
         for d in dataset:
-            print("working on:", m, "_", d)
+            print("working on: " + m +", " + d)
 
             answer, output = load_data(m, d, "accuracy")
             confusion_matrix = get_confusion_matrix(answer, output)
