@@ -27,7 +27,7 @@ def load_data (model, dataset, analysis):
 # in this case, 5
 def get_confusion_matrix (answer, output, class_num=5):     
     assert len(answer) == len(output)
-    labels = np.asarray([str(i) for i in range(class_num)])
+    labels = np.asarray([i for i in range(class_num)])
     matrix = confusion_matrix(np.asarray(answer), np.asarray(output), labels=labels)
     return matrix
 
