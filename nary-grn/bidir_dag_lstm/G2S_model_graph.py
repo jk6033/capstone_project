@@ -109,26 +109,34 @@ class ModelGraph(object):
         self.rev_in_neigh_mask = self.encoder_rev.passage_in_neighbor_mask
 
 
-        w_linear = tf.get_variable(
-                "w_linear", [options.entity_num*self.encoder_dim, options.class_num], 
-                dtype=tf.float32) # , constraint=lambda t: tf.clip_by_norm(t, 1))
-        b_linear = tf.get_variable(
-                "b_linear", [options.class_num], dtype=tf.float32)
+        w1 = tf.get_variable("w1",
+                [options.entity_num*self.encoder_dim, 10*self.encoder_dim], dtype=tf.float32)
+        b1 = tf.get_variable("b1",
+                [10*self.encoder_dim], dtype=tf.float32)
+
+        w2 = tf.get_variable("w2",
+                [10*self.encoder_dim, options.class_num], dtype=tf.float32)
+        b2 = tf.get_variable("b2",
+                [options.class_num], dtype=tf.float32)
+
+        # hidden layer 1
+        hidden_out = tf.nn.relu(tf.add(tf.matmul(entity_states, w1)+b1))
 
         # [batch, class_num]
-        logits = tf.matmul(entity_states, w_linear) + b_linear
+        prediction =  tf.nn.softmax(tf.matmul(hidden_out, w2) + b2)
+        prediction = _clip_and_normalize(prediction, 1.0e-6)
+        self.output = tf.argmax(prediction, axis=-1, output_type=tf.int32)
 
-        self.output = tf.argmax(logits, axis=-1, output_type=tf.int32)
- 
         ## calculating accuracy
         self.answers = tf.placeholder(tf.int32, [None,])
-        self.accu = tf.reduce_sum( tf.cast(
-                tf.equal(tf.argmax(logits,axis=-1,output_type=tf.int32),self.answers),
-                dtype=tf.float32))
+        self.accu = tf.reduce_sum(tf.cast(tf.equal(self.output,self.answers),dtype=tf.float32))
 
         ## calculating loss
-        self.loss = tf.reduce_mean( tf.nn.softmax_cross_entropy_with_logits( 
-                logits=logits, labels=tf.one_hot(self.answers, options.class_num)))
+        xent = -tf.reduce_sum(
+                tf.one_hot(self.answer, options.class_num)*tf.log(prediction), axis=-1)
+        self.loss = tf.reduce_mean(xent)
+
+
 
         if mode != 'train':
             print('Return from here, just evaluate')

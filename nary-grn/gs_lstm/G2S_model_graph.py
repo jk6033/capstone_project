@@ -115,21 +115,28 @@ class ModelGraph(object):
         # my code here
         self.entity_states = entity_states
         
+        
+        w1 = tf.get_variable("w1",
+                [options.entity_num*self.encoder_dim, 10*self.encoder_dim], dtype=tf.float32)
+        b1 = tf.get_variable("b1",
+                [10*self.encoder_dim], dtype=tf.float32)
 
-        w_linear = tf.get_variable("w_linear",
-                [options.entity_num*self.encoder_dim, options.class_num], dtype=tf.float32)
-        b_linear = tf.get_variable("b_linear",
+        w2 = tf.get_variable("w2",
+                [10*self.encoder_dim, options.class_num], dtype=tf.float32)
+        b2 = tf.get_variable("b2",
                 [options.class_num], dtype=tf.float32)
+
+        # hidden layer 1
+        hidden_out = tf.nn.relu(tf.add(tf.matmul(entity_states, w1)+b1))
+
         # [batch, class_num]
-        prediction = tf.nn.softmax(tf.matmul(entity_states, w_linear) + b_linear)
+        prediction =  tf.nn.softmax(tf.matmul(hidden_out, w2) + b2)
         prediction = _clip_and_normalize(prediction, 1.0e-6)
         self.output = tf.argmax(prediction,axis=-1,output_type=tf.int32)
 
         ## calculating accuracy
         self.refs = tf.placeholder(tf.int32, [None,])
         self.accu = tf.reduce_sum(tf.cast(tf.equal(self.output,self.refs),dtype=tf.float32))
-
-        ## self ref stands for actual answer, and self output stands for the prediction
 
         ## calculating loss
         # xent: [batch]
