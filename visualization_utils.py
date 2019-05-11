@@ -45,7 +45,7 @@ def get_tsne (entity):
     # print("calculating TSNE...")
     transformed = model.fit_transform(X)
 
-    return transformed
+    return transformed.tolist()
 
 def analyze(model, dataset):
     print("working on " + model +" & " + dataset)
