@@ -47,43 +47,35 @@ def get_tsne (entity):
 
     return transformed
 
+def analyze(model, dataset):
+    print("working on " + model +" & " + dataset)
+
+    answer, output, entity = load_data(model, dataset)
+    confusion_matrix = get_confusion_matrix(answer, output)
+    normalized_conf = normalize_confusion_matrix(confusion_matrix)
+    accuracy = confusion_matrix_accuracy(confusion_matrix)
+    tsne_values = get_tsne(entity)
+
+    result = {}
+
+    result["confusion_matrix"] = confusion_matrix
+    result["confusion_matrix_normalized"] = normalized_conf
+    result["accuracy"] = accuracy
+    result["tsne"] = tsne_values
+
+    path = "./" + model + "/" + dataset + "/result.json"
+    json.dump(result, open(path, 'w'))
+
 
 if __name__ == "__main__":
 
     model = ["bidir_dag_lstm", "gs_lstm"]
     dataset = ["validate", "test", "train"]
-    # analysis = ["accuracy", "entity"]
-    for i in range(len(model)):
-        m = str(model[i])
-        result_jsonify = {}
-        
-        for j in range(len(dataset)):
-            d = str(dataset[j])
-            print("working on " + m +" & " + d)
-
-            answer, output, entity = load_data(m, d)
-            confusion_matrix = get_confusion_matrix(answer, output)
-            normalized_conf = normalize_confusion_matrix(confusion_matrix)
-            accuracy = confusion_matrix_accuracy(confusion_matrix)
-            tsne_values = get_tsne(entity)
-
-        if d == "train":
-            result_jsonify["train_confusion_matrix"] = confusion_matrix
-            result_jsonify["train_confusion_matrix_normalized"] = normalized_conf
-            result_jsonify["train_accuracy"] = accuracy
-            result_jsonify["train_tsne"] = tsne_values
-
-        elif d == "validate":
-            result_jsonify["valid_confusion_matrix"] = confusion_matrix
-            result_jsonify["valid_confusion_matrix_normalized"] = normalized_conf
-            result_jsonify["valid_accuracy"] = accuracy
-            result_jsonify["valid_tsne"] = tsne_values
-
-        elif d == "test":
-            result_jsonify["test_confusion_matrix"] = confusion_matrix
-            result_jsonify["test_confusion_matrix_normalized"] = normalized_conf
-            result_jsonify["test_accuracy"] = accuracy
-            result_jsonify["test_tsne"] = tsne_values
     
-    path = "./" + model + "_result/result.json"
-    json.dump(result_jsonify, open(path, 'w'))
+
+    for i in range(len(model)):
+        m = model[i]
+        for j in range(len(dataset)):
+            d = dataset[i]
+
+            analyze(m, d)
