@@ -27,8 +27,8 @@ def load_data (model, dataset, analysis):
 # in this case, 5
 def get_confusion_matrix (answer, output, class_num=5):     
     assert len(answer) == len(output)
-    labels = [i for i in range(class_num)]
-    matrix = confusion_matrix(answer, output, labels=labels)
+    labels = np.asarray([str(i) for i in range(class_num)])
+    matrix = confusion_matrix(np.asarray(answer), np.asarray(output), labels=labels)
     return matrix
 
 # utility functions for confusion matrix
@@ -54,7 +54,7 @@ def get_tsne (entity):
 if __name__ == "__main__":
 
     model = ["bidir_dag_lstm", "gs_lstm"]
-    dataset = ["train", "validate", "test"]
+    dataset = ["validate", "test", "train"]
     # analysis = ["accuracy", "entity"]
     for m in model:
         result_jsonify = {}
