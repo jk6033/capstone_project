@@ -30,10 +30,12 @@ def get_confusion_matrix (answer, output, class_num=5):
 # utility functions for confusion matrix
 # axis: "col" or "row"
 def normalize_confusion_matrix (matrix, axis="col"):
+    matrix = np.asarray(matrix)
     normalized = np.round(matrix.astype('float') / matrix.sum(axis=1)[:, np.newaxis], 2)
     return normalized.tolist()
 
 def confusion_matrix_accuracy (matrix):
+    matrix = np.asarray(matrix)
     acc = round(np.trace(matrix)/np.sum(matrix), 4)
     return [acc]
 
