@@ -59,7 +59,7 @@ if __name__ == "__main__":
     for m in model:
         result_jsonify = {}
         for d in dataset:
-            print("working on: " + m +", " + d)
+            print("working on " + m +" & " + d)
 
             answer, output = load_data(m, d, "accuracy")
             confusion_matrix = get_confusion_matrix(answer, output)
