@@ -53,28 +53,13 @@ def get_tsne (entity):
 
 if __name__ == "__main__":
 
-    # accuracy analysis example
-    # answer, output = load_data('bidir_dag_lstm', 'validate', 'accuracy')
-    # confusion_matrix = get_confusion_matrix(answer, output)
-    # print(confusion_matrix)
-    # normalized_conf = normalize_confusion_matrix(confusion_matrix)
-    # print(normalized_conf)
-    # accuracy = confusion_matrix_accuracy(confusion_matrix)
-    # print(accuracy)
-
-    # entity analysis example
-    # entity = load_data('bidir_dag_lstm', 'validate', 'entity')
-    # tsne_values = get_tsne(entity)
-    # print(tsne_values)
-
     model = ["bidir_dag_lstm", "gs_lstm"]
     dataset = ["train", "validate", "test"]
     # analysis = ["accuracy", "entity"]
     for m in model:
         result_jsonify = {}
         for d in dataset:
-
-            print("working on:", m, "_", d, "_", a)
+            print("working on:", m, "_", d)
 
             answer, output = load_data(m, d, "accuracy")
             confusion_matrix = get_confusion_matrix(answer, output)
@@ -103,4 +88,4 @@ if __name__ == "__main__":
             result_jsonify["test_tsne"] = tsne_values
     
     path = "./" + model + "_result/result.json"
-    json.dump(result_jsonify, open(FLAGS.validate_result_path, 'w'))
+    json.dump(result_jsonify, open(path, 'w'))
