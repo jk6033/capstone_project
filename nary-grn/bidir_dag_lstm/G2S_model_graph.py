@@ -134,7 +134,7 @@ class ModelGraph(object):
         self.output = tf.argmax(prediction, axis=-1, output_type=tf.int32)
 
         ## calculating accuracy
-        self.answers = tf.placeholder(tf.int32, [None,])
+        self.answer = tf.placeholder(tf.int32, [None,])
         self.accu = tf.reduce_sum(tf.cast(tf.equal(self.output,self.answers),dtype=tf.float32))
 
         ## calculating loss
