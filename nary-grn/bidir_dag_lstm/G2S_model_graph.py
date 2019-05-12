@@ -134,12 +134,12 @@ class ModelGraph(object):
         self.output = tf.argmax(prediction, axis=-1, output_type=tf.int32)
 
         ## calculating accuracy
-        self.answer = tf.placeholder(tf.int32, [None,])
+        self.answers = tf.placeholder(tf.int32, [None,])
         self.accu = tf.reduce_sum(tf.cast(tf.equal(self.output,self.answers),dtype=tf.float32))
 
         ## calculating loss
         xent = -tf.reduce_sum(
-                tf.one_hot(self.answer, options.class_num)*tf.log(prediction), axis=-1)
+                tf.one_hot(self.answers, options.class_num)*tf.log(prediction), axis=-1)
         self.loss = tf.reduce_mean(xent)
 
 
