@@ -83,4 +83,5 @@ if __name__ == "__main__":
     #         d = dataset[j]
 
     #         analyze(m, d)
-    analyze(model[1], dataset[2])
+    for i in range(len(dataset)):
+        analyze(model[1], dataset[i])
