@@ -9,7 +9,7 @@ from sklearn.metrics  import confusion_matrix
 # analysis: "accuracy"or "entity"
 def load_data (model, dataset):
 
-    data_path = "../nary-grn/" + model + "/logs/" + dataset + "/result.json"
+    data_path = "./nary-grn/" + model + "/logs/" + dataset + "/result.json"
 
     with open(data_path) as f:
         json_file = json.load(f)
@@ -67,7 +67,7 @@ def analyze(model, dataset):
     result["accuracy"] = accuracy
     result["tsne"] = tsne_values
 
-    path = "./nary-grn/" + model + "/logs/" + dataset + "/result.json"
+    path = "./" + model + "_result/" + dataset + "/result.json"
     json.dump(result, open(path, 'w'))
 
 
