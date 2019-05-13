@@ -110,12 +110,12 @@ class ModelGraph(object):
 
 
         w1 = tf.get_variable("w1",
-                [options.entity_num*self.encoder_dim, 10*self.encoder_dim], dtype=tf.float32)
+                [options.entity_num*self.encoder_dim, 6*self.encoder_dim], dtype=tf.float32)
         b1 = tf.get_variable("b1",
-                [10*self.encoder_dim], dtype=tf.float32)
+                [6*self.encoder_dim], dtype=tf.float32)
 
         w2 = tf.get_variable("w2",
-                [10*self.encoder_dim, options.class_num], dtype=tf.float32)
+                [6*self.encoder_dim, options.class_num], dtype=tf.float32)
         b2 = tf.get_variable("b2",
                 [options.class_num], dtype=tf.float32)
         
