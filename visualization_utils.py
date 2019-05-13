@@ -67,7 +67,7 @@ def analyze(model, dataset):
     result["accuracy"] = accuracy
     result["tsne"] = tsne_values
 
-    path = "./" + model + "_result/" + dataset + "/result.json"
+    path = "./nary-grn/" + model + "/logs/" + dataset + "/result.json"
     json.dump(result, open(path, 'w'))
 
 
