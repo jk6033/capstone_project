@@ -1,6 +1,37 @@
-<namespace_utils.Bunch object at 0x7fe1098779d0>
-ACCU = 0.8350
-Step 664: loss = nan (476.491 sec)
-Dev loss = nan
-Dev accu = 0.2450 49/200
-Duration 5.555 sec
+<namespace_utils.Bunch object at 0x7f98b06db2d0>
+Step 664: loss = 1.37 (338.644 sec)
+Dev loss = 17.0106
+Dev accu = 0.6200 124/200
+Duration 5.016 sec
+Step 1329: loss = 1.29 (344.964 sec)
+Dev loss = 14.8556
+Dev accu = 0.7250 145/200
+Duration 5.039 sec
+Step 1994: loss = 1.22 (343.659 sec)
+Dev loss = 14.3108
+Dev accu = 0.6950 139/200
+Duration 4.417 sec
+Step 2659: loss = 1.19 (342.615 sec)
+Dev loss = 14.2056
+Dev accu = 0.7150 143/200
+Duration 4.424 sec
+Step 3324: loss = 1.16 (343.806 sec)
+Dev loss = 13.0329
+Dev accu = 0.7600 152/200
+Duration 5.042 sec
+Step 3989: loss = 1.12 (343.754 sec)
+Dev loss = 12.1850
+Dev accu = 0.7700 154/200
+Duration 4.953 sec
+Step 4654: loss = 1.07 (344.023 sec)
+Dev loss = 11.3906
+Dev accu = 0.8100 162/200
+Duration 5.002 sec
+Step 5319: loss = 1.05 (342.614 sec)
+Dev loss = 10.6491
+Dev accu = 0.8150 163/200
+Duration 4.971 sec
+Step 5984: loss = nan (343.730 sec)
+Dev loss = 17.3271
+Dev accu = 0.5350 107/200
+Duration 4.610 sec
