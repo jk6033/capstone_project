@@ -336,13 +336,13 @@ def main(_):
 
                     # also, write ground truth, predicted outcome, and entity states respectively
                     # first, for the train set
-                    train_jsonify = {
-                        "answer": answer, "output": prediction, "entity": entity}
-                    json.dump(train_jsonify, open(FLAGS.train_result_path, 'w'))
+                    # train_jsonify = {
+                    #     "answer": answer, "output": prediction, "entity": entity}
+                    # json.dump(train_jsonify, open(FLAGS.train_result_path, 'w'))
                     # next, for the validation set
-                    validation_jsonify = {
-                        "answer": dev_answer, "output": dev_output, "entity": dev_entities}
-                    json.dump(validation_jsonify, open(FLAGS.validate_result_path, 'w'))
+                    # validation_jsonify = {
+                    #     "answer": dev_answer, "output": dev_output, "entity": dev_entities}
+                    # json.dump(validation_jsonify, open(FLAGS.validate_result_path, 'w'))
 
 
                 duration = time.time() - start_time
