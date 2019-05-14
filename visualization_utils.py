@@ -9,7 +9,7 @@ from sklearn.metrics  import confusion_matrix
 # analysis: "accuracy"or "entity"
 def load_data (model):
 
-    data_path = "../result/bidir_dag_lstm/" + model + "/logs/result.json"
+    data_path = "../result/" + model + "/logs/result.json"
 
     with open(data_path) as f:
         json_file = json.load(f)
