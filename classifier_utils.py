@@ -28,7 +28,8 @@ def get_multiclass_representation(istrain=True):
     entity = json_file["entity"]
     answer = json_file["answer"]
     # return (entity, answer)
-    yield (entity, answer)
+    yield entity 
+    yield answer
 
 def vec_concatenate (vector1, vector2):
     assert np.asarray(vector1).shape == np.asarray(vector2).shape
