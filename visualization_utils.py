@@ -41,7 +41,7 @@ def calculate_accuracy (answer, output):
         total += 1
         if (answer[i] == output[i]):
             correct += 1
-    acc = round(correct/answer, 4)
+    acc = round(correct/total, 4)
     return [acc]
 
 def get_tsne (entity):
