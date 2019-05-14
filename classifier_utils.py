@@ -1,12 +1,15 @@
 ##
 import numpy as np
-# import pandas as pd
+import cPickle
 from sklearn.ensemble import RandomForestClassifier
 import json
 
 
-def get_binary_representation(): # isTrain should be always true; we will only be using multi class labels when testing
-    PATH = "../result/binary/logs/train/result.json"
+def get_binary_representation(istrain=True): # isTrain should be always true; we will only be using multi class labels when testing
+    if istrain:
+        PATH = "../result/binary/logs/train/result.json"
+    else:
+        PATH = "../result/binary/logs/test/result.json"
     print("Getting Data from " + PATH)
     with open(PATH) as f:
         json_file = json.load(f)
@@ -27,18 +30,30 @@ def get_multiclass_representation(istrain=True):
 
 def vec_concatenate (vector1, vector2):
     assert np.asarray(vector1).shape == np.asarray(vector2).shape
+    print("Concatenating Vectors...")
     vector = []
     for i in range(len(vector1)):
         temp = np.concatenate(vector1[i], vector2[i]).tolist()
         vector.append(temp)
     return np.asarray(vector)
 
-def randomforest(trainX, trainY, testX, testY):
+def train_randomforest(trainX, trainY):
     assert len(trainX) == len(trainY)
-    assert len(testX) == len(testY)
-    
+    print("Building RF Classifer...")
     clf = RandomForestClassifier(n_estimators=100, max_depth=10, min_samples_split=15)
     clf.fit(trainX, trainY)
+
+    # save randomforest
+    with open('my_randomforest.pkl', 'wb') as f:
+        cPickle.dump(clf, f)
+
+    print("train completed!")
+
+def test_randomforest(testX, testY):
+    assert len(testX) == len(testY)
+    # load randomforest
+    with open('my_randomforest.pkl', 'rb') as f:
+        clf = cPickle.load(f)
 
     # calculate accuracy
     answer = clf.predict(testX)
@@ -50,17 +65,5 @@ def randomforest(trainX, trainY, testX, testY):
     accuracy = round(correct / total, 4)
 
     print("Acc: " + str(accuracy))
-
-
-if __name__ == "__main__":
-    vector1, trainY = get_multiclass_representation(True)
-    vector2 = get_binary_representation()
-
-    testX, testY = get_multiclass_representation(False)
-
-    print("Concatenating Vectors...")
-    trainX = vec_concatenate(vector1, vector2)
-    print("Building RF Classifer...")
-    randomforest(trainX, trainY, testX, testY)
-
+    print("test completed!")
     
