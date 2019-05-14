@@ -6,7 +6,7 @@ import json
 
 
 def get_binary_representation(): # isTrain should be always true; we will only be using multi class labels when testing
-    PATH = "./bidir_dag_lstm_result/binary/train/result.json"
+    PATH = "../result/binary/logs/train/result.json"
     with open(PATH) as f:
         json_file = json.load(f)
     entity = json_file["entity"]
@@ -14,9 +14,9 @@ def get_binary_representation(): # isTrain should be always true; we will only b
 
 def get_multiclass_representation(istrain=True):
     if istrain: 
-        PATH = "./bidir_dag_lstm_result/binary/train/result.json"
+        PATH = "../result/multi/logs/train/result.json"
     else: 
-        PATH = "./bidir_dag_lstm_result/binary/test/result.json"
+        PATH = "../result/multi/logs/test/result.json"
     with open(PATH) as f:
         json_file = json.load(f)
     entity = json_file["entity"]
