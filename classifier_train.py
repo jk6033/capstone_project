@@ -1,6 +1,5 @@
 import classifier_utils as utils
 
-
 if __name__ == "__main__":
     vector1, trainY = utils.get_multiclass_representation(True)
     vector2 = utils.get_binary_representation(True)
