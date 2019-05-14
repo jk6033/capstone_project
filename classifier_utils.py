@@ -35,7 +35,7 @@ def randomforest(trainX, trainY, testX, testY):
     assert len(trainX) == len(trainY)
     assert len(testX) == len(testY)
     
-    clf = RandomForestClassifier(n_estimators=100, max_depth=5, min_samples_split=70)
+    clf = RandomForestClassifier(n_estimators=100, max_depth=10, min_samples_split=15)
     clf.fit(trainX, trainY)
 
     # calculate accuracy
@@ -56,8 +56,9 @@ if __name__ == "__main__":
 
     testX, testY = get_multiclass_representation(False)
 
+    print("Concatenating Vectors...")
     trainX = vec_concatenate(vector1, vector2)
-
+    print("Building RF Classifer...")
     randomforest(trainX, trainY, testX, testY)
 
     
