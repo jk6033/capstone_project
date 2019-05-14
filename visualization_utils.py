@@ -7,9 +7,13 @@ from sklearn.metrics  import confusion_matrix
 # model: "bidir_dag_lstm" or "gs_lstm"
 # dataset: "train" or "validate" or "test"
 # analysis: "accuracy"or "entity"
-def load_data (model, dataset):
+def load_data (model):
 
+<<<<<<< HEAD
     data_path = "./nary-grn/" + model + "/logs/" + dataset + "/result.json"
+=======
+    data_path = "../result/bidir_dag_lstm/logs/" + model + "/result.json"
+>>>>>>> e7b9db46e994be20539dd60ac0fed08099b27ddd
 
     with open(data_path) as f:
         json_file = json.load(f)
@@ -50,9 +54,9 @@ def get_tsne (entity):
     return transformed.tolist()
 
 def analyze(model, dataset):
-    print("working on " + model +" & " + dataset)
+    print("working on " + model)
 
-    answer, output, entity = load_data(model, dataset)
+    answer, output, entity = load_data(model)
     confusion_matrix = get_confusion_matrix(answer, output)
     normalized_conf = normalize_confusion_matrix(confusion_matrix)
     accuracy = confusion_matrix_accuracy(confusion_matrix)
@@ -67,15 +71,16 @@ def analyze(model, dataset):
     result["accuracy"] = accuracy
     result["tsne"] = tsne_values
 
-    path = "./" + model + "_result/" + dataset + "/result.json"
+    path = "./bidir_dag_lstm_result/" + model + "/" + dataset + "/result.json"
     json.dump(result, open(path, 'w'))
 
 
 if __name__ == "__main__":
 
-    model = ["bidir_dag_lstm", "gs_lstm"]
-    dataset = ["validate", "test", "train"]
+    model = ["binary", "multi"]
+    dataset = ["train", "test"]
     
+<<<<<<< HEAD
 
     # for i in range(len(model)):
     #     m = model[i]
@@ -85,3 +90,13 @@ if __name__ == "__main__":
     #         analyze(m, d)
     # for i in range(len(dataset)):
     analyze(model[0], dataset[1])
+=======
+    for i in range(len(model)):
+        m = model[i]
+        for j in range(len(dataset)):
+            d = dataset[j]
+            analyze(m, d)
+            
+        # for i in range(len(model)):
+        #     analyze(model[i])
+>>>>>>> e7b9db46e994be20539dd60ac0fed08099b27ddd
