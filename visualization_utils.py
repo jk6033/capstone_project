@@ -21,22 +21,27 @@ def load_data (model, dataset):
 
 # create confusion matrix to analyze the model's performance
 # in this case, 5
-def get_confusion_matrix (answer, output, class_num=5):     
-    assert len(answer) == len(output)
-    labels = np.asarray([i for i in range(class_num)])
-    matrix = confusion_matrix(np.asarray(answer), np.asarray(output), labels=labels)
-    return matrix.tolist()
+# def get_confusion_matrix (answer, output, class_num=5):     
+#     assert len(answer) == len(output)
+#     labels = np.asarray([i for i in range(class_num)])
+#     matrix = confusion_matrix(np.asarray(answer), np.asarray(output), labels=labels)
+#     return matrix.tolist()
 
 # utility functions for confusion matrix
 # axis: "col" or "row"
-def normalize_confusion_matrix (matrix, axis="col"):
-    matrix = np.asarray(matrix)
-    normalized = np.round(matrix.astype('float') / matrix.sum(axis=1)[:, np.newaxis], 2)
-    return normalized.tolist()
+# def normalize_confusion_matrix (matrix, axis="col"):
+#     matrix = np.asarray(matrix)
+#     normalized = np.round(matrix.astype('float') / matrix.sum(axis=1)[:, np.newaxis], 2)
+#     return normalized.tolist()
 
-def confusion_matrix_accuracy (matrix):
-    matrix = np.asarray(matrix)
-    acc = round(np.trace(matrix)/np.sum(matrix), 4)
+def calculate_accuracy (answer, output):
+    assert len(output) == len(answer)
+    correct = 0; total = 0
+    for i in range(len(answer)):
+        total += 1
+        if (answer[i] == output[i]):
+            correct += 1
+    acc = round(correct/answer, 4)
     return [acc]
 
 def get_tsne (entity):
@@ -53,17 +58,17 @@ def analyze(model, dataset):
     print("working on " + model)
 
     answer, output, entity = load_data(model, dataset)
-    confusion_matrix = get_confusion_matrix(answer, output)
-    normalized_conf = normalize_confusion_matrix(confusion_matrix)
-    accuracy = confusion_matrix_accuracy(confusion_matrix)
+    # confusion_matrix = get_confusion_matrix(answer, output)
+    # normalized_conf = normalize_confusion_matrix(confusion_matrix)
+    accuracy = calculate_accuracy(output, answer)
     tsne_values = get_tsne(entity)
 
     result = {}
 
     result["answer"] = answer
     result["output"] = output
-    result["confusion_matrix"] = confusion_matrix
-    result["confusion_matrix_normalized"] = normalized_conf
+    # result["confusion_matrix"] = confusion_matrix
+    # result["confusion_matrix_normalized"] = normalized_conf
     result["accuracy"] = accuracy
     result["tsne"] = tsne_values
 
