@@ -13,9 +13,9 @@ def get_binary_representation(istrain=True): # isTrain should be always true; we
     print("Getting Data from " + PATH)
     with open(PATH) as f:
         json_file = json.load(f)
-    entity = json_file["entity"]
+    
     # return entity
-    yield entity
+    yield json_file["entity"]
 
 def get_multiclass_representation(istrain=True):
     if istrain: 
@@ -25,11 +25,10 @@ def get_multiclass_representation(istrain=True):
     print("Getting Data from " + PATH)
     with open(PATH) as f:
         json_file = json.load(f)
-    entity = json_file["entity"]
-    answer = json_file["answer"]
+
     # return (entity, answer)
-    yield entity 
-    yield answer
+    yield json_file["entity"]
+    yield json_file["answer"]
 
 def vec_concatenate (vector1, vector2):
     assert np.asarray(vector1).shape == np.asarray(vector2).shape
