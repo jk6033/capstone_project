@@ -1,6 +1,5 @@
-<namespace_utils.Bunch object at 0x7fe1098779d0>
-ACCU = 0.8350
-Step 664: loss = nan (476.491 sec)
-Dev loss = nan
-Dev accu = 0.2450 49/200
-Duration 5.555 sec
+<namespace_utils.Bunch object at 0x7f4d91c53d90>
+Step 664: loss = 2.65 (338.131 sec)
+Dev loss = 29.9636
+Dev accu = 0.5500 110/200
+Duration 4.663 sec
