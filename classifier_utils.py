@@ -10,7 +10,7 @@ def get_binary_representation(istrain=True): # isTrain should be always true; we
         PATH = "../result/binary/logs/train/result.json"
     else:
         PATH = "../result/binary/logs/test/result.json"
-    print("Getting Data from " + PATH)
+    print("Getting Entity from " + PATH)
     with open(PATH) as f:
         json_file = json.load(f)
     
@@ -22,12 +22,13 @@ def get_multiclass_representation(istrain=True):
         PATH = "../result/multi/logs/train/result.json"
     else: 
         PATH = "../result/multi/logs/test/result.json"
-    print("Getting Data from " + PATH)
+    print("Getting Entity from " + PATH)
     with open(PATH) as f:
         json_file = json.load(f)
 
     # return (entity, answer)
     yield json_file["entity"]
+    print("Getting Answer from " + PATH)
     yield json_file["answer"]
 
 def vec_concatenate (vector1, vector2):
