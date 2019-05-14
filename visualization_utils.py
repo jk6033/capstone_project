@@ -7,9 +7,9 @@ from sklearn.metrics  import confusion_matrix
 # model: "bidir_dag_lstm" or "gs_lstm"
 # dataset: "train" or "validate" or "test"
 # analysis: "accuracy"or "entity"
-def load_data (model):
+def load_data (model, dataset):
 
-    data_path = "../result/" + model + "/logs/result.json"
+    data_path = "../result/" + model + "/logs/" + dataset + "/result.json"
 
     with open(data_path) as f:
         json_file = json.load(f)
@@ -52,7 +52,7 @@ def get_tsne (entity):
 def analyze(model, dataset):
     print("working on " + model)
 
-    answer, output, entity = load_data(model)
+    answer, output, entity = load_data(model, dataset)
     confusion_matrix = get_confusion_matrix(answer, output)
     normalized_conf = normalize_confusion_matrix(confusion_matrix)
     accuracy = confusion_matrix_accuracy(confusion_matrix)
