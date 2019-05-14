@@ -78,9 +78,7 @@ if __name__ == "__main__":
     
     for i in range(len(model)):
         m = model[i]
-        for j in range(len(dataset)):
-            d = dataset[j]
-            analyze(m, d)
+        analyze(m, dataset[1])
 
         # for i in range(len(model)):
         #     analyze(model[i])
