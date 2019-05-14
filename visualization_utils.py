@@ -9,7 +9,7 @@ from sklearn.metrics  import confusion_matrix
 # analysis: "accuracy"or "entity"
 def load_data (model):
 
-    data_path = "./nary-grn/" + model + "/logs/" + dataset + "/result.json"
+    data_path = "../result/bidir_dag_lstm/logs/" + model + "/result.json"
 
     with open(data_path) as f:
         json_file = json.load(f)
@@ -76,13 +76,11 @@ if __name__ == "__main__":
     model = ["binary", "multi"]
     dataset = ["train", "test"]
     
-
     for i in range(len(model)):
         m = model[i]
         for j in range(len(dataset)):
             d = dataset[j]
-
             analyze(m, d)
             
-    # # for i in range(len(dataset)):
-    # analyze(model[0], dataset[1])
+        # for i in range(len(model)):
+        #     analyze(model[i])
