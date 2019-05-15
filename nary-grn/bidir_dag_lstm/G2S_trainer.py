@@ -254,6 +254,8 @@ def main(_):
         prediction = []
         entity = []
 
+        train_jsonify = {}
+
         for step in xrange(max_steps):
             cur_batch = trainDataStream.nextBatch()
             cur_batch_rev = trainDataStreamRev.nextBatch()
@@ -333,17 +335,11 @@ def main(_):
                     namespace_utils.save_namespace(FLAGS, path_prefix + ".config.json")
 
                     # json.dump(res_dict['data'], open(FLAGS.output_path,'w'))
-
                     # also, write ground truth, predicted outcome, and entity states respectively
                     # first, for the train set
-                    train_jsonify = {
-                        "answer": answer, "output": prediction, "entity": entity}
-                    json.dump(train_jsonify, open(FLAGS.train_result_path, 'w'))
-                    # next, for the validation set
-                    # validation_jsonify = {
-                    #     "answer": dev_answer, "output": dev_output, "entity": dev_entities}
-                    # json.dump(validation_jsonify, open(FLAGS.validate_result_path, 'w'))
-
+                    train_jsonify["answer"] = answer
+                    train_jsonify["output"] = prediction
+                    train_jsonify["entity"] = entity
 
                 duration = time.time() - start_time
                 print('Duration %.3f sec' % (duration))
@@ -351,8 +347,10 @@ def main(_):
 
                 log_file.write('Duration %.3f sec\n' % (duration))
                 log_file.flush()
-
+        # at the end of the loop, dump training resulta
+        json.dump(train_jsonify, open(FLAGS.train_result_path, 'w'))            
     log_file.close()
+
 
 def enrich_options(options):
     if not options.__dict__.has_key("infile_format"):
