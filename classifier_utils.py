@@ -9,7 +9,8 @@ def get_data_length(isTrain=True):
     if isTrain:
         PATH = "../result/binary/logs/train/result.json"
     else:
-        PATH = "../result/binary/logs/test/result.json"
+        PATH = "../result/mluti/logs/train/result.json"
+        # PATH = "../result/binary/logs/test/result.json"
     print("Getting data length from " + PATH)
 
     with open(PATH) as f:
