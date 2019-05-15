@@ -70,7 +70,9 @@ def get_label(isMulti=True, isTrain=True):
     
 
 def concatenate_representation(vector1, vector2):
-    assert np.asarray(vector1).shape == np.asarray(vector2).shape
+    vector1 = np.asarray(vector1)
+    vector2 = np.asarray(vector2)
+    assert vector1.shape == vector2.shape
     print("Concatenating Vectors...")
     vector = []
     for i in range(len(vector1)):
