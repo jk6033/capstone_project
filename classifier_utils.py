@@ -8,22 +8,21 @@ from sklearn.ensemble import RandomForestClassifier
 def get_data_length(isTrain=True):
     if isTrain:
         PATH_binary = "../result/binary/logs/train/result.json"
-        PATH_multi = "../result/binary/logs/train/result.json"
+        PATH_multi = "../result/multi/logs/train/result.json"
     else:
         PATH_binary = "../result/binary/logs/test/result.json"
-        PATH_multi = "../result/binary/logs/test/result.json"
+        PATH_multi = "../result/multi/logs/test/result.json"
     print("Getting data length from " + PATH_binary)
-    print("Getting data length from " + PATH_multi)
-
     with open(PATH_binary) as b:
         json_binary = json.load(b)
+    print("Getting data length from " + PATH_multi)
     with open(PATH_multi) as m:
         json_multi = json.load(m)
 
     len_binary = len(json_binary["answer"])
     len_multi = len(json_multi["answer"])
     assert len_binary == len_multi
-    
+
     yield len_binary
 
 def get_binary_representation(batch_size, isTrain=True):
