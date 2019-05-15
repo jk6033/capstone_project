@@ -12,8 +12,8 @@ if __name__ == "__main__":
 
     b = utils.get_data_length(True)
     len1 = next(b)
-    print("binary train set: " + str(b))
+    print("binary train set: " + str(len1))
     
     m = utils.get_data_length(False)
     len2 = next(m)
-    print("binary train set: " + str(m))
+    print("binary train set: " + str(len2))
