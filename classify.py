@@ -127,7 +127,7 @@ def test_randomforest(model_path=None, clf=None): # either of them should be giv
         "entity": testX.tolist()
     }
 
-    json.dump(test_jsonify, open('./bidir_dag_lstm_result/random_forest/result.json', 'w'))
+    json.dump(test_jsonify, open('./bidir_dag_lstm_result/random_forest/result_raw.json', 'w'))
 
     print("Acc: " + str(accuracy))
     print("test complete!")

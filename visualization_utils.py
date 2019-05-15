@@ -9,11 +9,16 @@ from sklearn.metrics  import confusion_matrix
 # analysis: "accuracy"or "entity"
 def load_data (model, dataset):
 
-    data_path = "../result/" + model + "/logs/" + dataset + "/result.json"
+    if model == "randomforest":
+        data_path = "./bidir_dag_lstm_result/randomforest/result.json"
+    else:
+        data_path = "../result/" + model + "/logs/" + dataset + "/result.json"
+    
+    print("Fetching data from " + data_path)
 
     with open(data_path) as f:
         json_file = json.load(f)
-    
+
     answer = json_file["answer"]
     output = json_file["output"]
     entity = json_file["entity"]
@@ -35,30 +40,29 @@ def analyze(model, dataset):
     answer, output, entity = load_data(model, dataset)
     # confusion_matrix = get_confusion_matrix(answer, output)
     # normalized_conf = normalize_confusion_matrix(confusion_matrix)
-    accuracy = calculate_accuracy(output, answer)
     tsne_values = get_tsne(entity)
 
     result = {}
 
     result["answer"] = answer
     result["output"] = output
-    # result["confusion_matrix"] = confusion_matrix
-    # result["confusion_matrix_normalized"] = normalized_conf
-    result["accuracy"] = accuracy
     result["tsne"] = tsne_values
 
-    path = "./bidir_dag_lstm_result/" + model + "/" + dataset + "/result.json"
+    if model == "randomforest":
+        path = "./bidir_dag_lstm_result/" + model + "/" + dataset + "/result.json"
+    else:
+        path = "./bidir_dag_lstm_result/" + model + "/" + dataset + "/result.json"
+
     json.dump(result, open(path, 'w'))
 
 
 if __name__ == "__main__":
 
-    model = ["binary", "multi"]
-    dataset = ["train", "test"]
+    # model = ["binary", "multi"]
+    # dataset = ["train", "test"]
     
-    for i in range(len(model)):
-        m = model[i]
-        analyze(m, dataset[1])
+    # for i in range(len(model)):
+    #     m = model[i]
+    #     analyze(m, dataset[1])
 
-        # for i in range(len(model)):
-        #     analyze(model[i])
+    analyze(model='randomforest', dataset='test')
