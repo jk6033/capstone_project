@@ -108,6 +108,8 @@ def test_randomforest(model_path=None, clf=None): # either of them should be giv
 
     testX = get_representation(False)
     testY = get_label(False)
+    print("testX length: " + str(len(testX)))
+    print("testY length: " + str(len(testY)))
     assert len(testX) == len(testY)
     
     # calculate accuracy
