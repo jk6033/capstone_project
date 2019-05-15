@@ -124,7 +124,7 @@ def test_randomforest(model_path=None, clf=None): # either of them should be giv
         "answer": testY,
         "output": answer.tolist(),
         "accuracy": accuracy,
-        "entity": testX
+        "entity": testX.tolist()
     }
 
     json.dump(test_jsonify, open('./bidir_dag_lstm_result/random_forest/result.json', 'w'))
