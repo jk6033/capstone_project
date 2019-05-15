@@ -4,8 +4,8 @@ import multiprocessing as mp
 
 if __name__ == "__main__":
     # train classifier
-    fold_by = 2
-    clf = utils.train_multiprocess(fold_by)
+    fold_by = 4
+    clf = utils.train_randomforest(2)
 
     # test classifier
-    utils.test_randomforest(clf)
+    utils.test_randomforest(clf=clf)

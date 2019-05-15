@@ -10,7 +10,7 @@ def get_data_length(isTrain=True):
         PATH = "../result/binary/logs/train/result.json"
     else:
         PATH = "../result/binary/logs/test/result.json"
-    print("Getting Entity from " + PATH)
+    print("Getting data length from " + PATH)
 
     with open(PATH) as f:
         json_file = json.load(f)
@@ -19,7 +19,7 @@ def get_data_length(isTrain=True):
 
     yield answer
 
-def get_binary_representation(range_start, range_end, isTrain=True):
+def get_binary_representation(batch_size, isTrain=True):
     if isTrain:
         PATH = "../result/binary/logs/train/result.json"
     else:
@@ -29,15 +29,22 @@ def get_binary_representation(range_start, range_end, isTrain=True):
     with open(PATH) as f:
         json_file = json.load(f)
 
-    try:
-        entity = json_file["entity"][range_start:range_end]
-        return entity
-    except IndexError:
-        entity = json_file["entity"][range_start:-1]
-        print("Binary classification data fetch complete!")
-        return entity
+    length = len(json_file["entity"])
+    cumsum = 0
+    while cumsum < length:
+        try:
+            entity = json_file["entity"][cumsum:(cumsum+batch_size)]
+            print("Index fetched from " + str(cumsum) + " to " + str(cumsum+batch_size))
+            yield entity
+        except IndexError:
+            entity = json_file["entity"][cumsum:-1]
+            print("Index fetched from " + str(cumsum) + " to " + str(length-1))
+            print("Binary classification data fetch complete!")
+            yield entity
+        finally:
+            cumsum += batch_size
 
-def get_multiclass_representation(range_start, range_end, isTrain=True):
+def get_multiclass_representation(batch_size, isTrain=True):
     if isTrain: 
         PATH = "../result/multi/logs/train/result.json"
     else: 
@@ -47,15 +54,22 @@ def get_multiclass_representation(range_start, range_end, isTrain=True):
     with open(PATH) as f:
         json_file = json.load(f)
 
-    try:
-        entity = json_file["entity"][range_start:range_end]
-        return entity
-    except IndexError:
-        entity = json_file["entity"][range_start:-1]
-        print("Multi classification data fetch complete!")
-        return entity
+    length = len(json_file["entity"])
+    cumsum = 0
+    while cumsum < length:
+        try:
+            entity = json_file["entity"][cumsum:(cumsum+batch_size)]
+            print("Index fetched from " + str(cumsum) + " to " + str(cumsum+batch_size))
+            yield entity
+        except IndexError:
+            entity = json_file["entity"][cumsum:-1]
+            print("Index fetched from " + str(cumsum) + " to " + str(length-1))
+            print("Multi classification data fetch complete!")
+            yield entity
+        finally:
+            cumsum += batch_size
 
-def get_multiclass_label(range_start, range_end, isTrain=True):
+def get_multiclass_label(batch_size, isTrain=True):
     if isTrain: 
         PATH = "../result/multi/logs/train/result.json"
     else: 
@@ -65,13 +79,20 @@ def get_multiclass_label(range_start, range_end, isTrain=True):
     with open(PATH) as f:
         json_file = json.load(f)
 
-    try:
-        entity = json_file["entity"][range_start:range_end]
-        return entity
-    except IndexError:
-        entity = json_file["entity"][range_start:-1]
-        print("Multi classification label fetch complete!")
-        return entity
+    length = len(json_file["entity"])
+    cumsum = 0
+    while cumsum < length:
+        try:
+            entity = json_file["entity"][cumsum:(cumsum+batch_size)]
+            print("Index fetched from " + str(cumsum) + " to " + str(cumsum+batch_size))
+            yield entity
+        except IndexError:
+            entity = json_file["entity"][cumsum:-1]
+            print("Index fetched from " + str(cumsum) + " to " + str(length-1))
+            print("Binary classification data fetch complete!")
+            yield entity
+        finally:
+            cumsum += batch_size
 
 def concatenate_representation(vector1, vector2):
     assert np.asarray(vector1).shape == np.asarray(vector2).shape
@@ -82,21 +103,9 @@ def concatenate_representation(vector1, vector2):
         vector.append(temp)
     return np.asarray(vector)
 
-def train_randomforest(clf, range_start, range_end):
-    print("Trainging forest...")
-    vector1 = get_binary_representation(range_start, range_end, True)
-    vector2 = get_multiclass_representation(range_start, range_end, True)
-
-    trainX = concatenate_representation(vector1, vector2)
-    trainY = get_multiclass_label(range_start, range_end)
-    
-    assert len(trainX) == len(trainY)
-    clf.fit(trainX, trainY)
-    clf.n_estimators += 50
-
-def train_multiprocess(fold_by):
-    print("Initializing forest")
+def train_randomforest(fold_by):
     # initialize random forest
+    print("Initializing forest")
     clf = RandomForestClassifier(n_estimators=50, max_depth=10, min_samples_split=15, warm_start=True)
 
     # calculate batch size
@@ -104,9 +113,21 @@ def train_multiprocess(fold_by):
     data_size = next(g)
     batch_size = data_size // (fold_by -1)
 
-    arguements = [(clf, i*batch_size, (i+1)*batch_size)  for i in range(fold_by)]
-    pool = mp.Pool(fold_by)
-    pool.map(train_randomforest, arguements) #arguement
+    print("Trainging forest...")
+    counter = 0
+    binary_vector = get_binary_representation(batch_size, True)
+    multi_vector = get_multiclass_representation(batch_size, True)
+    multi_label = get_multiclass_label(batch_size, True)
+    while counter < fold_by:
+        vector1 = next(multi_vector)
+        vector2 = next(binary_vector)
+
+        trainX = concatenate_representation(vector1, vector2)
+        trainY = next(multi_label)
+        
+        assert len(trainX) == len(trainY)
+        clf.fit(trainX, trainY)
+        clf.n_estimators += 50
 
     with open('my_randomforest.pkl', 'wb') as f:
         cPickle.dump(clf, f)
@@ -121,12 +142,14 @@ def test_randomforest(model_path=None, clf=None): # one of them should be given
             clf = cPickle.load(f)
     else:
         assert clf != None
+    g = get_data_length(isTrain=False)
+    length = next(g)
 
-    vector1 = get_binary_representation(0, -1, True)
-    vector2 = get_multiclass_representation(0, -1, True)
+    vector1 = get_binary_representation(length, True)
+    vector2 = get_multiclass_representation(length, True)
 
     testX = concatenate_representation(vector1, vector2)
-    testY = get_multiclass_label(0, -1)
+    testY = get_multiclass_label(length, True)
     assert len(testX) == len(testY)
     
     # calculate accuracy
