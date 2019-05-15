@@ -10,9 +10,9 @@ if __name__ == "__main__":
     # # test classifier
     # utils.test_randomforest(clf=clf)
 
-    b = utils.get_data_length(True)
-    len1 = next(b)
-    print("binary train set: " + str(len1))
+    # b = utils.get_data_length(True)
+    # len1 = next(b)
+    # print("binary train set: " + str(len1))
     
     m = utils.get_data_length(False)
     len2 = next(m)
