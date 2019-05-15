@@ -92,11 +92,12 @@ def train_randomforest(clf, range_start, range_end):
     
     assert len(trainX) == len(trainY)
     clf.fit(trainX, trainY)
+    clf.n_estimators += 50
 
 def train_multiprocess(fold_by):
     print("Initializing forest")
     # initialize random forest
-    clf = RandomForestClassifier(n_estimators=100, max_depth=10, min_samples_split=15)
+    clf = RandomForestClassifier(n_estimators=50, max_depth=10, min_samples_split=15, warm_start=True)
 
     # calculate batch size
     g = get_data_length(True)
@@ -104,7 +105,7 @@ def train_multiprocess(fold_by):
     batch_size = data_size // (fold_by -1)
 
     arguements = [(clf, i*batch_size, (i+1)*batch_size)  for i in range(fold_by)]
-    pool = mp.Pool(4)
+    pool = mp.Pool(fold_by)
     pool.map(train_randomforest, arguements) #arguement
 
     with open('my_randomforest.pkl', 'wb') as f:
