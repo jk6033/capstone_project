@@ -87,7 +87,7 @@ def train_randomforest():
 
     print("Trainging forest...")
     trainX = get_representation(True)
-    trainY = get_label(True, True)
+    trainY = get_label(isMulti=True, isTrain=True)
     assert len(trainX) == len(trainY)
 
     clf.fit(trainX, trainY)
@@ -107,9 +107,7 @@ def test_randomforest(model_path=None, clf=None): # either of them should be giv
         assert clf != None
 
     testX = get_representation(False)
-    testY = get_label(False)
-    print("testX length: " + str(len(testX)))
-    print("testY length: " + str(len(testY)))
+    testY = get_label(isMulti=True, isTrain=False)
     assert len(testX) == len(testY)
     
     # calculate accuracy
