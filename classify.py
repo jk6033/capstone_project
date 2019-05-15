@@ -107,7 +107,7 @@ def test_randomforest(model_path=None, clf=None): # either of them should be giv
         assert clf != None
 
     testX = get_representation(False)
-    testY = get_label(isMulti=True, isTrain=False)
+    testY = get_label(isMulti=False, isTrain=False)
     assert len(testX) == len(testY)
     
     # calculate accuracy
