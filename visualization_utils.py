@@ -10,7 +10,7 @@ from sklearn.metrics  import confusion_matrix
 def load_data (model, dataset):
 
     if model == "randomforest":
-        data_path = "./bidir_dag_lstm_result/randomforest/result.json"
+        data_path = "./bidir_dag_lstm_result/randomforest/result_raw.json"
     else:
         data_path = "../result/" + model + "/logs/" + dataset + "/result.json"
     
