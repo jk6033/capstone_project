@@ -115,7 +115,7 @@ def test_randomforest(model_path=None, clf=None): # either of them should be giv
     assert len(answer) == len(testY)
     correct = 0; total = 0
     for i in range(len(answer)):
-        if answer[i] == testY[i]: correct += 1
+        if answer[i] == np.asarray(testY)[i]: correct += 1
         total += 1
     accuracy = round(correct / total, 4)
 
