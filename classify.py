@@ -41,7 +41,7 @@ def get_representation(isTrain=True):
     with open(PATH_multi) as m:
         json_multi = json.load(m)
 
-    vecotr1 = json_binary["entity"]
+    vector1 = json_binary["entity"]
     vector2 = json_multi["entity"]
     
     representation = concatenate_representation(vector1, vector2)
