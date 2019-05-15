@@ -254,6 +254,8 @@ def main(_):
         prediction = []
         entity = []
 
+        train_jsonify = {}
+
         for step in xrange(max_steps):
             cur_batch = trainDataStream.nextBatch()
             cur_batch_rev = trainDataStreamRev.nextBatch()
@@ -334,7 +336,7 @@ def main(_):
 
                     # json.dump(res_dict['data'], open(FLAGS.output_path,'w'))
                     # also, write ground truth, predicted outcome, and entity states respectively
-                    
+
                     # first, for the train set
                     train_jsonify["answer"] = answer
                     train_jsonify["output"] = prediction
