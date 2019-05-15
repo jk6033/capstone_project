@@ -136,7 +136,7 @@ if __name__ == '__main__':
 
         test_jsonify = {
             "answer": answers, "output": outputs, "entity": entities}
-        json.dump(test_jsonify, open(FLAGS.test_result_path, 'w'))
+        json.dump(test_jsonify, open(FLAGS.train_result_path, 'w'))
 
         print('Test accu {}, right {}, total {}'.format(1.0*test_right/test_total, test_right, test_total))
 
