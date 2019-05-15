@@ -348,7 +348,7 @@ def main(_):
 
                 log_file.write('Duration %.3f sec\n' % (duration))
                 log_file.flush()
-        # at the end of the loop, dump training result
+        # at the end of the loop, dump training resulta
         json.dump(train_jsonify, open(FLAGS.train_result_path, 'w'))            
     log_file.close()
 
