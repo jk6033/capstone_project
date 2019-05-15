@@ -49,7 +49,7 @@ def analyze(model, dataset):
     result["tsne"] = tsne_values
 
     if model == "randomforest":
-        path = "./bidir_dag_lstm_result/" + model + "/" + dataset + "/result.json"
+        path = "./bidir_dag_lstm_result/random_forest/" + dataset + "/result.json"
     else:
         path = "./bidir_dag_lstm_result/" + model + "/" + dataset + "/result.json"
 
