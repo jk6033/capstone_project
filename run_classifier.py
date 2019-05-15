@@ -5,7 +5,7 @@ import multiprocessing as mp
 if __name__ == "__main__":
     # train classifier
     fold_by = 1
-    clf = utils.train_randomforest(2)
+    clf = utils.train_randomforest(fold_by)
 
     # # test classifier
     utils.test_randomforest(clf=clf)

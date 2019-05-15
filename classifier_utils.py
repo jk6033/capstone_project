@@ -20,7 +20,9 @@ def get_data_length(isTrain=True):
         json_multi = json.load(m)
 
     len_binary = len(json_binary["answer"])
+    print("Binary Data Length: " + str(len_binary))
     len_multi = len(json_multi["answer"])
+    print("Multi Class Data Length: " + str(len_multi))
     assert len_binary == len_multi
 
     yield len_binary
