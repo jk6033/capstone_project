@@ -19,31 +19,6 @@ def load_data (model, dataset):
     entity = json_file["entity"]
     return (answer, output, entity)
 
-# create confusion matrix to analyze the model's performance
-# in this case, 5
-# def get_confusion_matrix (answer, output, class_num=5):     
-#     assert len(answer) == len(output)
-#     labels = np.asarray([i for i in range(class_num)])
-#     matrix = confusion_matrix(np.asarray(answer), np.asarray(output), labels=labels)
-#     return matrix.tolist()
-
-# utility functions for confusion matrix
-# axis: "col" or "row"
-# def normalize_confusion_matrix (matrix, axis="col"):
-#     matrix = np.asarray(matrix)
-#     normalized = np.round(matrix.astype('float') / matrix.sum(axis=1)[:, np.newaxis], 2)
-#     return normalized.tolist()
-
-def calculate_accuracy (answer, output):
-    assert len(output) == len(answer)
-    correct = 0; total = 0
-    for i in range(len(answer)):
-        total += 1
-        if (answer[i] == output[i]):
-            correct += 1
-    acc = round(correct/total, 4)
-    return [acc]
-
 def get_tsne (entity):
     X = np.asarray(entity)
     # print("entity has a shape of", X.shape)
