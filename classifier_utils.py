@@ -9,8 +9,7 @@ def get_data_length(isTrain=True):
     if isTrain:
         PATH = "../result/binary/logs/train/result.json"
     else:
-        PATH = "../result/multi/logs/train/result.json"
-        # PATH = "../result/binary/logs/test/result.json"
+        PATH = "../result/binary/logs/test/result.json"
     print("Getting data length from " + PATH)
 
     with open(PATH) as f:
@@ -107,7 +106,7 @@ def concatenate_representation(vector1, vector2):
 def train_randomforest(fold_by):
     # initialize random forest
     print("Initializing forest")
-    clf = RandomForestClassifier(n_estimators=50, max_depth=10, min_samples_split=15, warm_start=True)
+    clf = RandomForestClassifier(n_estimators=100, max_depth=10, min_samples_split=15, warm_start=True)
 
     # calculate batch size
     g = get_data_length(True)
