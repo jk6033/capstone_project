@@ -11,8 +11,9 @@ if __name__ == "__main__":
     # utils.test_randomforest(clf=clf)
 
     b = utils.get_data_length(True)
-    m = utils.get_data_length(False)
     len1 = next(b)
-    len2 = next(m)
     print("binary train set: " + str(b))
+    
+    m = utils.get_data_length(False)
+    len2 = next(m)
     print("binary train set: " + str(m))
