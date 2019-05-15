@@ -51,14 +51,14 @@ def get_representation(isTrain=True):
 def get_label(isMulti=True, isTrain=True):
     if isTrain:
         if isMulti: 
-            PATH = "../result/binary/logs/train/result.json"
+            PATH = "../result/multi/logs/train/result.json"
         else: 
-            PATH = "../result/multi/logs/train/result.json"    
+            PATH = "../result/binary/logs/train/result.json"    
     else:
         if isMulti: 
-            PATH = "../result/binary/logs/test/result.json"
-        else: 
             PATH = "../result/multi/logs/test/result.json"
+        else: 
+            PATH = "../result/binary/logs/test/result.json"
 
     print("Fetching label from " + PATH)
     
@@ -122,7 +122,7 @@ def test_randomforest(model_path=None, clf=None): # either of them should be giv
     # store result
     test_jsonify = {
         "answer": testY,
-        "output": answer,
+        "output": answer.tolist(),
         "accuracy": accuracy,
         "entity": testX
     }
