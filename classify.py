@@ -68,17 +68,17 @@ def get_label(isMulti=True, isTrain=True):
     label = json_file["answer"]
     return label
     
-
 def concatenate_representation(vector1, vector2):
     vector1 = np.asarray(vector1)
     vector2 = np.asarray(vector2)
     assert vector1.shape == vector2.shape
     print("Concatenating Vectors...")
-    vector = []
+    
+    representation = np.empty((vector1.shape[0], vector1.shape[1]*2))
     for i in range(len(vector1)):
-        temp = np.concatenate(vector1[i], vector2[i]).tolist()
-        vector.append(temp)
-    return np.asarray(vector)
+        representation[i] = np.concatenate((vector1[i], vector2[i]))
+        
+    return representation
 
 def train_randomforest():
     # initialize random forest
