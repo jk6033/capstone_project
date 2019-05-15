@@ -60,7 +60,7 @@ def get_label(isMulti=True, isTrain=True):
         else: 
             PATH = "../result/multi/logs/test/result.json"
 
-    print("Getting Label from " + PATH)
+    print("Fetching label from " + PATH)
     
     with open(PATH) as f:
         json_file = json.load(f)
@@ -105,8 +105,6 @@ def test_randomforest(model_path=None, clf=None): # either of them should be giv
             clf = cPickle.load(f)
     else:
         assert clf != None
-    g = get_data_length(isTrain=False)
-    length = next(g)
 
     testX = get_representation(False)
     testY = get_label(False)
