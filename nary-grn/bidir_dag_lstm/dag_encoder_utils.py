@@ -165,10 +165,8 @@ class GraphEncoder(object):
         w_trans = tf.get_variable("w_trans", [edge_dim, options.dag_hidden_dim], dtype=tf.float32) # input_dim + edge_dim
         b_trans = tf.get_variable("b_trans", [options.dag_hidden_dim], dtype=tf.float32)
 
-        passage_in_neighbor_representations = tf.reshape(passage_in_neighbor_representations,
-                [-1, edge_dim]) # input_dim + edge_dim
-        passage_in_neighbor_representations = tf.matmul(passage_in_neighbor_representations,
-                w_trans) + b_trans
+        passage_in_neighbor_representations = tf.reshape(passage_in_neighbor_representations, [-1, edge_dim]) # input_dim + edge_dim
+        passage_in_neighbor_representations = tf.matmul(passage_in_neighbor_representations, w_trans) + b_trans
         passage_in_neighbor_representations = tf.tanh(passage_in_neighbor_representations)
 
         passage_in_neighbor_representations = tf.reshape(passage_in_neighbor_representations,
@@ -179,7 +177,6 @@ class GraphEncoder(object):
         with tf.variable_scope('gated_operations'):
             w_in_ingate = tf.get_variable("w_in_ingate",
                     [options.dag_hidden_dim, options.dag_hidden_dim], dtype=tf.float32)
-                #     , constraint=lambda t: tf.clip_by_norm(t, 1.0)) # modified
             u_in_ingate = tf.get_variable("u_in_ingate",
                     [options.dag_hidden_dim, options.dag_hidden_dim], dtype=tf.float32)
             b_ingate = tf.get_variable("b_in_ingate",
@@ -187,7 +184,6 @@ class GraphEncoder(object):
 
             w_in_forgetgate = tf.get_variable("w_in_forgetgate",
                     [options.dag_hidden_dim, options.dag_hidden_dim], dtype=tf.float32)
-                #     , constraint=lambda t: tf.clip_by_norm(t, 1.0)) # modified
             u_in_forgetgate = tf.get_variable("u_in_forgetgate",
                     [options.dag_hidden_dim, options.dag_hidden_dim], dtype=tf.float32)
             b_forgetgate = tf.get_variable("b_in_forgetgate",
@@ -195,7 +191,6 @@ class GraphEncoder(object):
 
             w_in_outgate = tf.get_variable("w_in_outgate",
                     [options.dag_hidden_dim, options.dag_hidden_dim], dtype=tf.float32)
-                #     , constraint=lambda t: tf.clip_by_norm(t, 1.0)) # modified
             u_in_outgate = tf.get_variable("u_in_outgate",
                     [options.dag_hidden_dim, options.dag_hidden_dim], dtype=tf.float32)
             b_outgate = tf.get_variable("b_in_outgate",
@@ -203,7 +198,6 @@ class GraphEncoder(object):
 
             w_in_cell = tf.get_variable("w_in_cell",
                     [options.dag_hidden_dim, options.dag_hidden_dim], dtype=tf.float32)
-                #     , constraint=lambda t: tf.clip_by_norm(t, 1.0)) # modified
             u_in_cell = tf.get_variable("u_in_cell",
                     [options.dag_hidden_dim, options.dag_hidden_dim], dtype=tf.float32)
             b_cell = tf.get_variable("b_in_cell",
