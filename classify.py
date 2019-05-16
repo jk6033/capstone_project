@@ -178,9 +178,16 @@ class Dataset:
 
 def doMLP():
     trainX = np.asarray(get_representation(True))
-    trainY = np.asarray(get_label(isMulti=True, isTrain=True))
+    trainy_ = np.asarray(get_label(isMulti=True, isTrain=True))
+    # one hot
+    trainY = np.zeros((len(trainy_), 5))
+    trainY[np.arange(len(trainy_)), trainy_] = 1
+
     testX = np.asarray(get_representation(False))
-    testY = np.asarray(get_label(isMulti=True, isTrain=False))
+    testy_ = np.asarray(get_label(isMulti=True, isTrain=False))
+    # one hot
+    testY = np.zeros((len(testy_), 5))
+    testY[np.arange(len(testy_)), testy_] = 1
 
     # Parameters
     learning_rate = 0.001
@@ -258,7 +265,7 @@ def doMLP():
                 batch_y = batchY.next_batch(batch_size)
                 # Run optimization op (backprop) and cost op (to get loss value)
                 _, c = sess.run([train_op, loss], 
-                        feed_dict={X: batch_x, Y: tf.one_hot(batch_y, depth=5)})
+                        feed_dict={X: batch_x, Y: batch_y})
                 # Compute average loss
                 avg_cost += c / total_batch
             # Display logs per epoch step
