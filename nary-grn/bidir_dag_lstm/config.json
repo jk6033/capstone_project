@@ -30,7 +30,7 @@
     "max_char_per_word": 20,
     
     "edgelabel_dim": 50,
-    "neighbor_vector_dim": 150,
+    "neighbor_vector_dim": 100,
     "fix_word_vec": true,
     "compress_input": true,
     "compress_input_dim": 100,
@@ -38,7 +38,7 @@
     "config_path": "config.json",
     "generate_config": false
 
-    , "dag_hidden_dim": 150
+    , "dag_hidden_dim": 100
 
     ,"output_path": "logs/result_c_m_0.json"
     , "train_result_path": "logs/train/result.json"
