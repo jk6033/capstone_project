@@ -192,7 +192,7 @@ def doMLP():
     # Parameters
     learning_rate = 0.0001
     lambda_l2 = 0.001
-    training_epochs = 1000
+    training_epochs = 9000
     batch_size = 10
     display_step = 10
 
