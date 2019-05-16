@@ -145,11 +145,16 @@ class GraphEncoder(object):
         passage_in_neighbor_edge_representations = tf.nn.embedding_lookup(self.edge_embedding,
                 self.passage_in_neighbor_edges)
         # [batch_size, passage_len, passage_neighbors_size_max, node_dim]
-        passage_in_neighbor_node_representations = collect_neighbor_node_representations(
-                passage_node_representation, self.passage_in_neighbor_indices)
+        
+        # omitted - remove adjacency
+        # passage_in_neighbor_node_representations = collect_neighbor_node_representations(
+        #         passage_node_representation, self.passage_in_neighbor_indices)
 
-        passage_in_neighbor_representations = tf.concat( \
-                [passage_in_neighbor_node_representations, passage_in_neighbor_edge_representations], 3)
+        passage_in_neighbor_representations = passage_in_neighbor_edge_representations
+        # omitted
+        # tf.concat( \ 
+        #         [passage_in_neighbor_node_representations, passage_in_neighbor_edge_representations], 3)
+
         passage_in_neighbor_representations = tf.multiply(passage_in_neighbor_representations,
                 tf.expand_dims(self.passage_in_neighbor_mask, axis=-1))
         # [batch_size, passage_len, node_dim + edge_dim]

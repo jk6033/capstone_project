@@ -175,7 +175,6 @@ class Dataset:
             end = self._index_in_epoch
             return self._data[start:end]
 
-
 def doMLP():
     trainX = np.asarray(get_representation(True))
     trainy_ = np.asarray(get_label(isMulti=True, isTrain=True))
