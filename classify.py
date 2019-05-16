@@ -198,7 +198,7 @@ def doMLP():
     # tf Graph input
     X = tf.placeholder("float", [None, n_input])
     Y = tf.placeholder("float", [None, n_classes])
-
+    
     # Store layers weight & bias
     weights = {
         'h1': tf.Variable(tf.random_normal([n_input, n_hidden_1])),
@@ -257,7 +257,8 @@ def doMLP():
                 batch_x = batchX.next_batch(batch_size)
                 batch_y = batchY.next_batch(batch_size)
                 # Run optimization op (backprop) and cost op (to get loss value)
-                _, c = sess.run([train_op, loss], feed_dict={X: batch_x, Y: batch_y})
+                _, c = sess.run([train_op, loss], 
+                        feed_dict={X: batch_x, Y: tf.one_hot(batch_y, depth=5)})
                 # Compute average loss
                 avg_cost += c / total_batch
             # Display logs per epoch step
