@@ -29,7 +29,7 @@
     "char_lstm_dim": 50,
     "max_char_per_word": 20,
     
-    "edgelabel_dim": 100,
+    "edgelabel_dim": 50,
     "neighbor_vector_dim": 150,
     "fix_word_vec": true,
     "compress_input": true,
