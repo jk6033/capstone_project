@@ -270,7 +270,7 @@ def doMLP():
                 avg_cost += c / total_batch
             # Display logs per epoch step
             if epoch % display_step == 0:
-                print("Epoch: " + str('%04d'%(epoch+1)) + ("cost={:.9f}".format(avg_cost)))
+                print("Epoch " + str('%04d'%(epoch+1)) + (": cost={:.9f}".format(avg_cost)))
         print("Optimization Finished!")
 
         # Test model
