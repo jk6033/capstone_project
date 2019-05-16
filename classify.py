@@ -74,7 +74,7 @@ def concatenate_representation(vector1, vector2):
     vector1 = np.asarray(vector1)
     vector2 = np.asarray(vector2)
     assert vector1.shape == vector2.shape
-    print("Concatenating Vectors...")
+    print("Concatenating Vectors: vector1 shape of " + str(vector1.shape) + ", vector2 shape of " + str(vector2.shape))
     
     representation = np.empty((vector1.shape[0], vector1.shape[1]*2))
     for i in range(len(vector1)):
@@ -192,7 +192,7 @@ def doMLP():
     # Parameters
     learning_rate = 0.001
     lambda_l2 = 0.001
-    training_epochs = 50
+    training_epochs = 200
     batch_size = 10
     display_step = 1
 
@@ -270,7 +270,7 @@ def doMLP():
                 avg_cost += c / total_batch
             # Display logs per epoch step
             if epoch % display_step == 0:
-                print("Epoch:", '%04d' % (epoch+1), "cost={:.9f}".format(avg_cost))
+                print("Epoch: " + str('%04d'%(epoch+1)) + ("cost={:.9f}".format(avg_cost)))
         print("Optimization Finished!")
 
         # Test model
