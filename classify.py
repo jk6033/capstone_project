@@ -177,10 +177,10 @@ class Dataset:
 
 
 def doMLP():
-    trainX = get_representation(True)
-    trainY = get_label(isMulti=True, isTrain=True)
-    testX = get_representation(False)
-    testY = get_label(isMulti=True, isTrain=False)
+    trainX = np.asarray(get_representation(True))
+    trainY = np.asarray(get_label(isMulti=True, isTrain=True))
+    testX = np.asarray(get_representation(False))
+    testY = np.asarray(get_label(isMulti=True, isTrain=False))
 
     # Parameters
     learning_rate = 0.001
