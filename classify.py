@@ -224,7 +224,7 @@ def doMLP():
     # Calculate accuracy
     accuracy = tf.reduce_mean(tf.cast(correct_prediction, "float"))
     # print("Accuracy:", accuracy.eval({X: mnist.test.images, Y: mnist.test.labels}))
-    print("Accuracy: " + accuracy)
+    print("Accuracy: " + str(accuracy))
     
     # Define loss and optimizer
     loss = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=logits, labels=Y))
