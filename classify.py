@@ -190,11 +190,11 @@ def doMLP():
     testY[np.arange(len(testy_)), testy_] = 1
 
     # Parameters
-    learning_rate = 0.001
+    learning_rate = 0.0001
     lambda_l2 = 0.001
-    training_epochs = 200
+    training_epochs = 1000
     batch_size = 10
-    display_step = 1
+    display_step = 10
 
     # Network Parameters
     n_hidden_1 = 4096 # 1st layer number of neurons
