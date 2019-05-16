@@ -197,8 +197,8 @@ def doMLP():
     display_step = 1
 
     # Network Parameters
-    n_hidden_1 = 1024 # 1st layer number of neurons
-    n_hidden_2 = 1024 # 2nd layer number of neurons
+    n_hidden_1 = 4096 # 1st layer number of neurons
+    n_hidden_2 = 4096 # 2nd layer number of neurons
     n_input = 1800 # 400 # data input (200 * 2)
     n_classes = 5 # total classes (0-4)
 
