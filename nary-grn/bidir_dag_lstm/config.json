@@ -15,11 +15,11 @@
     "max_out_neigh_num": 45,
     "max_entity_size":5,
     "entity_num":3,
-    "learning_rate": 0.0001,
+    "learning_rate": 0.02,
     "lambda_l2": 0.001,
     "dropout_rate": 0.2,
     "max_epochs": 50,
-    "optimize_type": "adam",
+    "optimize_type": "sgd",
 
     "with_highway": true,
     "highway_layer_num": 1,
