@@ -37,14 +37,10 @@ def read_nary_file(inpath, options, is_rev):
                 continue
             for sentence in inst['sentences']:
                 for node in sentence['nodes']:
-
-                    # modified
-                    if (node['label'] == "adjtok:next"): continue
-                    if (node['label'] == "adjtok:prev"): continue
-
                     words.append(node['label'])
                     lemmas.append(node['lemma'])
                     poses.append(node['postag'])
+
             N = len(words)
             if is_rev:
                 words = words[::-1]
@@ -62,14 +58,21 @@ def read_nary_file(inpath, options, is_rev):
                     for arc in node['arcs']:
                         j = arc['toIndex'] if not is_rev else N - 1 - arc['toIndex']
                         l = arc['label']
+
+                        # modified
+                        if (l == "adjtok:next"): continue
+                        elif (l == "adjtok:prev"): continue
+                        
                         l = l.split('::')[0]
                         l = l.split('_')[0]
                         l = l.split('(')[0]
+
                         if j == -1 or j == N or j < i or l == '':
                             continue
                         in_neigh[j].append(i)
                         in_neigh_hidden[j].append(i+1)
                         in_label[j].append(l)
+                        
             all_in_neigh.append(in_neigh)
             all_in_neigh_hidden.append(in_neigh_hidden)
             all_in_label.append(in_label)
