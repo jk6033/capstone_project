@@ -37,6 +37,11 @@ def read_nary_file(inpath, options, is_rev):
                 continue
             for sentence in inst['sentences']:
                 for node in sentence['nodes']:
+
+                    # modified
+                    if (node['label'] == "adjtok:next"): continue
+                    if (node['label'] == "adjtok:prev"): continue
+
                     words.append(node['label'])
                     lemmas.append(node['lemma'])
                     poses.append(node['postag'])

@@ -146,14 +146,11 @@ class GraphEncoder(object):
                 self.passage_in_neighbor_edges)
 
         # [batch_size, passage_len, passage_neighbors_size_max, node_dim]
-        # omitted - remove adjacency
-        # passage_in_neighbor_node_representations = collect_neighbor_node_representations(
-        #         passage_node_representation, self.passage_in_neighbor_indices)
+        passage_in_neighbor_node_representations = collect_neighbor_node_representations(
+                passage_node_representation, self.passage_in_neighbor_indices)
 
-        passage_in_neighbor_representations = passage_in_neighbor_edge_representations
-        # omitted
-        # tf.concat( \ 
-        #         [passage_in_neighbor_node_representations, passage_in_neighbor_edge_representations], 3)
+        passage_in_neighbor_representations = tf.concat( \ 
+                [passage_in_neighbor_node_representations, passage_in_neighbor_edge_representations], 3)
 
         passage_in_neighbor_representations = tf.multiply(passage_in_neighbor_representations,
                 tf.expand_dims(self.passage_in_neighbor_mask, axis=-1))
@@ -162,10 +159,10 @@ class GraphEncoder(object):
 
 
         # =====transform neighbor_representations
-        w_trans = tf.get_variable("w_trans", [edge_dim, options.dag_hidden_dim], dtype=tf.float32) # input_dim + edge_dim
+        w_trans = tf.get_variable("w_trans", [input_dim + edge_dim, options.dag_hidden_dim], dtype=tf.float32) # input_dim + edge_dim
         b_trans = tf.get_variable("b_trans", [options.dag_hidden_dim], dtype=tf.float32)
 
-        passage_in_neighbor_representations = tf.reshape(passage_in_neighbor_representations, [-1, edge_dim]) # input_dim + edge_dim
+        passage_in_neighbor_representations = tf.reshape(passage_in_neighbor_representations, [-1, input_dim + edge_dim]) # input_dim + edge_dim
         passage_in_neighbor_representations = tf.matmul(passage_in_neighbor_representations, w_trans) + b_trans
         passage_in_neighbor_representations = tf.tanh(passage_in_neighbor_representations)
 
