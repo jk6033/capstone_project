@@ -149,8 +149,7 @@ class GraphEncoder(object):
         passage_in_neighbor_node_representations = collect_neighbor_node_representations(
                 passage_node_representation, self.passage_in_neighbor_indices)
 
-        passage_in_neighbor_representations = tf.concat( \ 
-                [passage_in_neighbor_node_representations, passage_in_neighbor_edge_representations], 3)
+        passage_in_neighbor_representations = tf.concat([passage_in_neighbor_node_representations, passage_in_neighbor_edge_representations], 3)
 
         passage_in_neighbor_representations = tf.multiply(passage_in_neighbor_representations,
                 tf.expand_dims(self.passage_in_neighbor_mask, axis=-1))
