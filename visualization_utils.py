@@ -34,6 +34,32 @@ def get_tsne (entity):
 
     return transformed.tolist()
 
+
+def get_label_frequency():
+
+    binary_train = "../result/binary/logs/train/result.json"
+    binary_test = "../result/binary/logs/test/result.json"
+    multi_train = "../result/multi/logs/train/result.json"
+    multi_test = "../result/multi/logs/test/result.json"
+    path_list =[binary_train, binary_test, multi_train, multi_test]
+
+    result = {}
+    for p in path_list:
+        with open(p) as f:
+            json_file = json.load(f)
+        
+        answer = json_file["answer"]
+        label = set(answer)
+
+        freq = {}
+        for l in label:
+            temp = full.count(l)
+            freq[str(l)] = temp
+        
+        result{p} = freq
+
+    return result
+
 def analyze(model, dataset):
     print("working on " + model)
 
@@ -65,4 +91,7 @@ if __name__ == "__main__":
     #     m = model[i]
     #     analyze(m, dataset[1])
 
-    analyze(model='randomforest', dataset='test')
+    # analyze(model='randomforest', dataset='test')
+    
+    result = get_label_frequency()
+    print(result)
