@@ -253,7 +253,7 @@ def main(_):
         answer = []
         prediction = []
         entity = []
-        
+
         train_jsonify = {}
 
         for step in xrange(max_steps):
@@ -335,7 +335,6 @@ def main(_):
                     namespace_utils.save_namespace(FLAGS, path_prefix + ".config.json")
 
                     # json.dump(res_dict['data'], open(FLAGS.output_path,'w'))
-
                     # also, write ground truth, predicted outcome, and entity states respectively
                     # first, for the train set
                     train_jsonify["answer"] = answer
@@ -351,6 +350,7 @@ def main(_):
         # at the end of the loop, dump training resulta
         json.dump(train_jsonify, open(FLAGS.train_result_path, 'w'))            
     log_file.close()
+
 
 def enrich_options(options):
     if not options.__dict__.has_key("infile_format"):
