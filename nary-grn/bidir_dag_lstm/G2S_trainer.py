@@ -136,13 +136,13 @@ def main(_):
     random.shuffle(ids)
 
     # modified
-    printset = [fullset[x] for x in ids[:5]]
+    printset = [fullset[x] for x in ids[:5]] 
     printset_rev = [fullset_rev[x] for x in ids[:5]]
 
     print(printset)
     print(printset_rev)
     ###
-    
+
     devset = [fullset[x] for x in ids[:200]]
     devset_rev = [fullset_rev[x] for x in ids[:200]]
     trainset = [fullset[x] for x in ids[200:]]
