@@ -56,7 +56,7 @@ def get_label_frequency():
             temp = full.count(l)
             freq[str(l)] = temp
         
-        result{p} = freq
+        result[p]= freq
 
     return result
 
