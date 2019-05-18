@@ -60,7 +60,7 @@ def read_nary_file(inpath, options, is_rev):
                         
                         # modified
                         if (l == "adjtok:next"): continue
-                        if (l == "prev:next"): continue
+                        if (l == "adjtok:prev"): continue
 
                         l = l.split('::')[0]
                         l = l.split('_')[0]
