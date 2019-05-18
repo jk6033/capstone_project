@@ -53,7 +53,7 @@ def get_label_frequency():
 
         freq = {}
         for l in label:
-            temp = full.count(l)
+            temp = answer.count(l)
             freq[str(l)] = temp
         
         result[p]= freq
