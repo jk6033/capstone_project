@@ -124,6 +124,7 @@ def main(_):
     namespace_utils.save_namespace(FLAGS, path_prefix + ".config.json")
 
     print('Loading train set.')
+    # to be modified
     if FLAGS.infile_format == 'fof':
         fullset = G2S_data_stream.read_nary_from_fof(FLAGS.train_path, FLAGS, is_rev=False)
         fullset_rev = G2S_data_stream.read_nary_from_fof(FLAGS.train_path, FLAGS, is_rev=True)
@@ -133,6 +134,15 @@ def main(_):
 
     ids = range(len(fullset))
     random.shuffle(ids)
+
+    # modified
+    printset = [fullset[x] for x in ids[:5]] 
+    printset_rev = [fullset_rev[x] for x in ids[:5]]
+
+    print(printset)
+    print(printset_rev)
+    ###
+
     devset = [fullset[x] for x in ids[:200]]
     devset_rev = [fullset_rev[x] for x in ids[:200]]
     trainset = [fullset[x] for x in ids[200:]]
@@ -253,7 +263,7 @@ def main(_):
         answer = []
         prediction = []
         entity = []
-        
+
         train_jsonify = {}
 
         for step in xrange(max_steps):
@@ -335,7 +345,6 @@ def main(_):
                     namespace_utils.save_namespace(FLAGS, path_prefix + ".config.json")
 
                     # json.dump(res_dict['data'], open(FLAGS.output_path,'w'))
-
                     # also, write ground truth, predicted outcome, and entity states respectively
                     # first, for the train set
                     train_jsonify["answer"] = answer
@@ -351,6 +360,7 @@ def main(_):
         # at the end of the loop, dump training resulta
         json.dump(train_jsonify, open(FLAGS.train_result_path, 'w'))            
     log_file.close()
+
 
 def enrich_options(options):
     if not options.__dict__.has_key("infile_format"):

@@ -57,6 +57,11 @@ def read_nary_file(inpath, options, is_rev):
                     for arc in node['arcs']:
                         j = arc['toIndex'] if not is_rev else N - 1 - arc['toIndex']
                         l = arc['label']
+                        
+                        # modified
+                        if (l == "adjtok:next"): continue
+                        if (l == "adjtok:prev"): continue
+
                         l = l.split('::')[0]
                         l = l.split('_')[0]
                         l = l.split('(')[0]
