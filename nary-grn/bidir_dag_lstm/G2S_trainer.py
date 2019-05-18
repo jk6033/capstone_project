@@ -124,6 +124,7 @@ def main(_):
     namespace_utils.save_namespace(FLAGS, path_prefix + ".config.json")
 
     print('Loading train set.')
+    # to be modified
     if FLAGS.infile_format == 'fof':
         fullset = G2S_data_stream.read_nary_from_fof(FLAGS.train_path, FLAGS, is_rev=False)
         fullset_rev = G2S_data_stream.read_nary_from_fof(FLAGS.train_path, FLAGS, is_rev=True)
@@ -133,6 +134,15 @@ def main(_):
 
     ids = range(len(fullset))
     random.shuffle(ids)
+
+    # modified
+    printset = [fullset[x] for x in ids[:5]]
+    printset_rev = [fullset_rev[x] for x in ids[:5]]
+
+    print(printset)
+    print(printset_rev)
+    ###
+    
     devset = [fullset[x] for x in ids[:200]]
     devset_rev = [fullset_rev[x] for x in ids[:200]]
     trainset = [fullset[x] for x in ids[200:]]
