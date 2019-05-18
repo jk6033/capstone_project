@@ -124,6 +124,7 @@ def main(_):
     namespace_utils.save_namespace(FLAGS, path_prefix + ".config.json")
 
     print('Loading train set.')
+    ### TO BE MODIFIED
     if FLAGS.infile_format == 'fof':
         fullset = G2S_data_stream.read_nary_from_fof(FLAGS.train_path, FLAGS, is_rev=False)
         fullset_rev = G2S_data_stream.read_nary_from_fof(FLAGS.train_path, FLAGS, is_rev=True)
