@@ -90,11 +90,11 @@ def read_nary_file(inpath, options, is_rev):
 # modified
 def read_nary_file_tree(inpath, options, is_rev):
     if is_rev:
-        forward  = read_nary_file(inpath, options, is_rev)
-        backward = read_nary_file(inpath, options, not is_rev)
-    elif not is_rev:
         forward  = read_nary_file(inpath, options, not is_rev)
         backward = read_nary_file(inpath, options, is_rev)
+    elif not is_rev:
+        forward  = read_nary_file(inpath, options, is_rev)
+        backward = read_nary_file(inpath, options, not is_rev)
 
     data_length = range(len(forward))
     lex = []
