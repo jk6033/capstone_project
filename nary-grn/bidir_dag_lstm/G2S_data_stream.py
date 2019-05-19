@@ -53,9 +53,11 @@ def read_nary_file(inpath, options, is_rev):
             in_label = [['self',] for i,_ in enumerate(words)]
             for sentence in inst['sentences']:
                 for node in sentence['nodes']:
-                    i = node['index'] if not is_rev else N - 1 - node['index']
+                    # i = node['index'] if not is_rev else N - 1 - node['index']
+                    i = node['index']
                     for arc in node['arcs']:
-                        j = arc['toIndex'] if not is_rev else N - 1 - arc['toIndex']
+                        # j = arc['toIndex'] if not is_rev else N - 1 - arc['toIndex']
+                        j = arc['toIndex']
                         l = arc['label']
                         
                         # modified
@@ -69,11 +71,13 @@ def read_nary_file(inpath, options, is_rev):
                             continue
                         in_neigh[j].append(i)
                         in_neigh_hidden[j].append(i+1)
-                        in_label[j].append(l)
+
+                        in_label[j].append(l) # ["self", "depinv:poss"]
             all_in_neigh.append(in_neigh)
             all_in_neigh_hidden.append(in_neigh_hidden)
             all_in_label.append(in_label)
             entity_indices = []
+
             for entity in inst['entities']:
                 ei = [i if not is_rev else N - 1 - i for i in entity['indices']]
                 ei = [i+1 for i in ei]
