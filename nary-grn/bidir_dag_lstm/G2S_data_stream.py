@@ -109,46 +109,50 @@ def read_nary_file_tree(inpath, options, is_rev):
         hidden = []
         label = []
 
-        if i == 1: print(forward[i][2])
+        # if i == 1: print(forward[i][2])
         lex.append(forward[i][0])
         poses.append(forward[i][1])
         
+        neighbors_temp = []
         for j in range(len(forward[i][2])):
-            neighbors_temp = []
+            temp = []
             # forward
             forward_neighbor = forward[i][2][j]
             # backward
             backward_neighbor = backward[i][2][(-j-1)]
             backward_neighbor = [(k - len(forward[i][2]) + j) for k in backward_neighbor]
             
-            neighbors_temp += forward_neighbor
-            if len(backward_neighbor) > 1: neighbors_temp += backward_neighbor[1:]
+            temp += forward_neighbor
+            if len(backward_neighbor) > 1: temp += backward_neighbor[1:]
+            neighbors_temp.append(temp)
         neighbors.append(neighbors_temp)
 
+        hidden_temp = []
         for j in range(len(forward[i][3])):
-            hidden_temp = []
+            temp = []
             # forward
             forward_hidden = forward[i][3][j]
             # backward
             backward_hidden = backward[i][3][(-j-1)]
             backward_hidden = [(k - len(forward[i][3]) + j) for k in backward_hidden]
 
-            hidden_temp += forward_hidden
-            if len(backward_hidden) > 1: hidden_temp += backward_hidden[1:]
+            temp += forward_hidden
+            if len(backward_hidden) > 1: temp += backward_hidden[1:]
+            hidden_temp.append(temp)
         hidden.append(hidden_temp)
 
+        label_temp = []
         for j in range(len(forward[i][4])):
-            label_temp= []
+            temp= []
             # forward
             forward_label = forward[i][4][j]
             # backward
             backward_label = backward[i][4][(-j-1)]
 
-            label_temp += forward_label
-            if len(backward_label) > 1: label_temp += backward_label[1:]
+            temp += forward_label
+            if len(backward_label) > 1: temp += backward_label[1:]
+            label_temp.append(temp)
         label.append(label_temp)
-        
-        if i == 1: print(label)
         
         entity.append(forward[i][5])
         y.append([forward[i][6]])
