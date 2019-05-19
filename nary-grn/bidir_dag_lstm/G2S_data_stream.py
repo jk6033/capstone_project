@@ -107,7 +107,7 @@ def read_nary_file_tree(inpath, options, is_rev):
     
     # print(len(forward))
     for i in data_length:
-        # if i == 1: print(forward[i][0])
+        if i == 1: print(forward[i][2])
         lex.append(forward[i][0])
         poses.append(forward[i][1])
         
