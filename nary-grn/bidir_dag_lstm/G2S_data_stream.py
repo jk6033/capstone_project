@@ -134,7 +134,7 @@ def read_nary_file_tree(inpath, options, is_rev):
             forward_hidden = forward[i][3][j]
             # backward
             backward_hidden = backward[i][3][(-j-1)]
-            backward_hidden = [(k - len(forward[i][3]) + j) for k in backward_hidden]
+            backward_hidden = [(len(forward[i][3]) -k + j) for k in backward_hidden]
 
             temp += forward_hidden
             if len(backward_hidden) > 1: temp += backward_hidden[1:]
