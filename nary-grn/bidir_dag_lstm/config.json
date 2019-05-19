@@ -43,5 +43,5 @@
     ,"output_path": "logs/result_c_m_0.json"
     , "train_result_path": "logs/train/result.json"
     , "multi_result_path": "logs/validate/result.json"
-    , "test_result_path": "logs/train/result.json"
+    , "test_result_path": "logs/test/result.json"
 }
