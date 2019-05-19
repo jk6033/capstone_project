@@ -132,6 +132,9 @@ def main(_):
         fullset = G2S_data_stream.read_nary_file(FLAGS.train_path, FLAGS, is_rev=False)
         fullset_rev = G2S_data_stream.read_nary_file(FLAGS.train_path, FLAGS, is_rev=True)
 
+    ## modified
+
+
     ids = range(len(fullset))
 
     # modified

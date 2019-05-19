@@ -53,11 +53,9 @@ def read_nary_file(inpath, options, is_rev):
             in_label = [['self',] for i,_ in enumerate(words)]
             for sentence in inst['sentences']:
                 for node in sentence['nodes']:
-                    # i = node['index'] if not is_rev else N - 1 - node['index']
-                    i = node['index']
+                    i = node['index'] if not is_rev else N - 1 - node['index']
                     for arc in node['arcs']:
-                        # j = arc['toIndex'] if not is_rev else N - 1 - arc['toIndex']
-                        j = arc['toIndex']
+                        j = arc['toIndex'] if not is_rev else N - 1 - arc['toIndex']
                         l = arc['label']
                         
                         # modified
@@ -77,7 +75,7 @@ def read_nary_file(inpath, options, is_rev):
             all_in_neigh_hidden.append(in_neigh_hidden)
             all_in_label.append(in_label)
             entity_indices = []
-
+            
             for entity in inst['entities']:
                 ei = [i if not is_rev else N - 1 - i for i in entity['indices']]
                 ei = [i+1 for i in ei]
@@ -86,6 +84,7 @@ def read_nary_file(inpath, options, is_rev):
             all_entity_indices.append(entity_indices)
             all_y.append(relation_set[inst['relationLabel'].strip()])
     all_lex = all_lemmas if options.word_format == 'lemma' else all_words
+
     return zip(all_lex, all_poses, all_in_neigh, all_in_neigh_hidden, all_in_label, all_entity_indices, all_y)
 
 
