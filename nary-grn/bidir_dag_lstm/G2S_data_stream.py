@@ -53,11 +53,9 @@ def read_nary_file(inpath, options, is_rev):
             in_label = [['self',] for i,_ in enumerate(words)]
             for sentence in inst['sentences']:
                 for node in sentence['nodes']:
-                    i = node['index']
-                    # i = node['index'] if not is_rev else N - 1 - node['index']
+                    i = node['index'] if not is_rev else N - 1 - node['index']
                     for arc in node['arcs']:
-                        # j = arc['toIndex'] if not is_rev else N - 1 - arc['toIndex']
-                        j = arc['toIndex'] 
+                        j = arc['toIndex'] if not is_rev else N - 1 - arc['toIndex']
                         l = arc['label']
                         
                         # modified
