@@ -170,8 +170,8 @@ def read_nary_file_tree(inpath, options, is_rev):
         entity.append(forward[i][5])
         y.append([forward[i][6]])
     
-    print(lex)
-    print(y)
+    # print(lex)
+    # print(y)
     return zip(lex, poses, neighbors, hidden, label, entity, y)
 
 
