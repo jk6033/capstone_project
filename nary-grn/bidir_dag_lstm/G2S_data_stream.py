@@ -118,12 +118,12 @@ def read_nary_file_tree(inpath, options, is_rev):
             # backward
             backward_neighbor = backward[i][2][(-j-1)]
             backward_neighbor = [(k - len(forward[i][2]) + j) for k in backward_neighbor]
-
-            neighbors_temp.append(forward_neighbor[0])
-            try: neighbors_temp.extend(forward_neighbor[1:])
-            except IndexError: _ = 0
-            try: neighbors_temp.extend(backward_neighbor[1:])
-            except IndexError: _ = 0
+            
+            neighbors_temp += forward_neighbor
+            if len(backward_neighbor) <= 1: 
+                # do nothing
+            else:
+                neighbors_temp += backward_neighbor[1:]
             neighbors.append(neighbors_temp)
 
         for j in range(len(forward[i][3])):
@@ -134,11 +134,11 @@ def read_nary_file_tree(inpath, options, is_rev):
             backward_hidden = backward[i][3][(-j-1)]
             backward_hidden = [(k - len(forward[i][3]) + j) for k in backward_hidden]
 
-            hidden_temp.append(forward_hidden[0])
-            try: hidden_temp.extend(forward_hidden[1:])
-            except IndexError: _ = 0
-            try: hidden_temp.extend(backward_hidden[1:])
-            except IndexError: _ = 0
+            hidden_temp += forward_hidden
+            if len(backward_hidden) <= 1:
+                # do nothing
+            else:
+                hidden_temp += backward_hidden[1:]
             hidden.append(hidden_temp)
 
         for j in range(len(forward[i][4])):
@@ -148,11 +148,11 @@ def read_nary_file_tree(inpath, options, is_rev):
             # backward
             backward_label = backward[i][4][(-j-1)]
 
-            label_temp.append(forward_label[0]) # aka self
-            try: label_temp.extend(forward_label[1:])
-            except IndexError: _ = 0
-            try: label_temp.extend(backward_label[1:])
-            except IndexError: _ = 0
+            label_temp += forward_label
+            if len(backward_label) <= 1: 
+                # do nothing
+            else:
+                label_temp += backward_label[1:]
             label.append(label_temp)
 
         entity.append(forward[i][5])
