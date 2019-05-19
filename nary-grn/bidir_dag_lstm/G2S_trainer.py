@@ -133,8 +133,8 @@ def main(_):
         fullset_rev = G2S_data_stream.read_nary_file_tree(FLAGS.train_path, FLAGS, is_rev=True)
 
     ###
-    printset = fullset[0]
-    printset_rev = fullset_rev[0]
+    printset = fullset[0][0]
+    printset_rev = fullset_rev[0][0]
     print(printset)
     print(printset_rev)
     sys.exit()

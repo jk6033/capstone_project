@@ -105,6 +105,7 @@ def read_nary_file_tree(inpath, options, is_rev):
     entity = []
     y = []
     
+    
     for i in data_length:
         lex += forward[i][0]
         poses += forward[i][1]
@@ -176,7 +177,7 @@ def read_nary_from_fof(fofpath, options, is_rev):
     all_instances = []
     for cur_path in all_paths:
         print(cur_path)
-        cur_instances = read_nary_file_tree(cur_path, options, is_rev)
+        cur_instances = read_nary_file(cur_path, options, is_rev)
         all_instances.extend(cur_instances)
     return all_instances
 
