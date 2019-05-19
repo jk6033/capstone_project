@@ -88,7 +88,7 @@ def read_nary_file(inpath, options, is_rev):
     return zip(all_lex, all_poses, all_in_neigh, all_in_neigh_hidden, all_in_label, all_entity_indices, all_y)
 
 # modified
-def  (inpath, options, is_rev):
+def read_nary_file_tree(inpath, options, is_rev):
     if is_rev:
         forward  = read_nary_file(inpath, options, not is_rev)
         backward = read_nary_file(inpath, options, is_rev)
