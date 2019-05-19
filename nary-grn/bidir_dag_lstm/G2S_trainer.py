@@ -129,24 +129,11 @@ def main(_):
         fullset = G2S_data_stream.read_nary_from_fof(FLAGS.train_path, FLAGS, is_rev=False)
         fullset_rev = G2S_data_stream.read_nary_from_fof(FLAGS.train_path, FLAGS, is_rev=True)
     else:
-        fullset = G2S_data_stream.read_nary_file(FLAGS.train_path, FLAGS, is_rev=False)
-        fullset_rev = G2S_data_stream.read_nary_file(FLAGS.train_path, FLAGS, is_rev=True)
-
-    ## modified
-
+        fullset = G2S_data_stream.read_nary_file_tree(FLAGS.train_path, FLAGS, is_rev=False)
+        fullset_rev = G2S_data_stream.read_nary_file_tree(FLAGS.train_path, FLAGS, is_rev=True)
 
     ids = range(len(fullset))
-
-    # modified
-    printset = [fullset[x] for x in ids[:1]] 
-    printset_rev = [fullset_rev[x] for x in ids[:1]]
-
-    print(printset)
-    print(printset_rev)
-    ###
-    sys.exit()
-    ###
-
+    
     random.shuffle(ids)
 
     devset = [fullset[x] for x in ids[:200]]

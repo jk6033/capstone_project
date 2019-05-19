@@ -87,6 +87,89 @@ def read_nary_file(inpath, options, is_rev):
 
     return zip(all_lex, all_poses, all_in_neigh, all_in_neigh_hidden, all_in_label, all_entity_indices, all_y)
 
+# modified
+def read_nary_file_tree(inpath, options, is_rev):
+    if is_rev:
+        forward  = read_nary_file(inpath, options, is_rev)
+        backward = read_nary_file(inpath, options, not is_rev)
+    elif not is_rev:
+        forward  = read_nary_file(inpath, options, not is_rev)
+        backward = read_nary_file(inpath, options, is_rev)
+
+    data_length = range(len(forward))
+    lex = []
+    poses = []
+    neighbors = []
+    hidden = []
+    label = []
+    entity = []
+    y = []
+    
+    for i in data_length:
+        lex += forward[i][0]
+        poses += forward[i][1]
+        
+        neighbors_temp = []
+        for j in range(len(forward[i][2])):
+            # forward
+            forward_neighbor = forward[i][2][j]
+            # backward
+            backward_neighbor = backward[i][2][(-j-1)]
+            backward_neighbor = [(k - len(forward[i][2])) + j) for k in backward_neighbor]
+
+            neighbors_temp.append(forward_neighbor[0])
+            try: 
+                for f in forward_neighbor[1:]:
+                    neighbors_temp.append(f)
+            except IndexError: _ = 0
+            try: 
+                for b in backward_neighbor[1:]:
+                    neighbors_temp.append(b)
+            except IndexError: _ = 0
+        neighbors = neighbors_temp
+
+        hidden_temp = []
+        for j in range(len(forward[i][3])):
+            # forward
+            forward_hidden = forward[i][3][j]
+            # backward
+            backward_hidden = backward[i][3][(-j-1)]
+            backward_hidden = [(k - len(forward[i][3])) + j) for k in backward_hidden]
+
+            hidden_temp.append(forward_hidden[0])
+            try: 
+                for f in forward_hidden[1:]:
+                    hidden_temp.append(f)
+            except IndexError: _ = 0
+            try: 
+                for b in backward_hidden[1:]:
+                    hidden_temp.append(b)
+            except IndexError: _ = 0
+        hidden = hidden_temp
+
+        label_temp = []
+        for j in range(len(forward[i][4])):
+            # forward
+            forward_label = forward[i][4][j]
+            # backward
+            backward_label = backward[i][4][(-j-1)]
+
+            label_temp.append(forward_label[0]) # aka self
+            try: 
+                for f in forward_label[1:]:
+                    label_temp.append(f)
+            except IndexError: _ = 0
+            try: 
+                for b in backward_label[1:]:
+                    label_temp.append(b)
+            except IndexError: _ = 0
+        label = label_temp
+
+        entity += forward[i][5]
+        y += forward[i][6]
+
+    return zip(lex, poses, neighbors, hidden, label, entity, y)
+
 
 def read_nary_from_fof(fofpath, options, is_rev):
     all_paths = read_text_file(fofpath)
@@ -94,9 +177,7 @@ def read_nary_from_fof(fofpath, options, is_rev):
     for cur_path in all_paths:
         print(cur_path)
         cur_instances = read_nary_file(cur_path, options, is_rev)
-        flip_instances = read_nary_file(cur_path, options, not is_rev)
         all_instances.extend(cur_instances)
-        all_instances.extend(flip_instances)
     return all_instances
 
 
