@@ -133,7 +133,6 @@ def main(_):
         fullset_rev = G2S_data_stream.read_nary_file(FLAGS.train_path, FLAGS, is_rev=True)
 
     ids = range(len(fullset))
-    random.shuffle(ids)
 
     # modified
     printset = [fullset[x] for x in ids[:1]] 
@@ -143,6 +142,9 @@ def main(_):
     print(printset_rev)
     ###
     sys.exit()
+    ###
+
+    random.shuffle(ids)
 
     devset = [fullset[x] for x in ids[:200]]
     devset_rev = [fullset_rev[x] for x in ids[:200]]
