@@ -123,12 +123,14 @@ def read_nary_file_tree(inpath, options, is_rev):
             try: 
                 for f in forward_neighbor[1:]:
                     neighbors_temp.append(f)
-            except IndexError: _ = 0
+            except IndexError:
+                neighbors.append(neighbors_temp)
             try: 
                 for b in backward_neighbor[1:]:
                     neighbors_temp.append(b)
-            except IndexError: _ = 0
-            neighbors.append(neighbors_temp)
+            except IndexError:
+                neighbors.append(neighbors_temp)
+            
 
         for j in range(len(forward[i][3])):
             hidden_temp = []
@@ -142,12 +144,13 @@ def read_nary_file_tree(inpath, options, is_rev):
             try: 
                 for f in forward_hidden[1:]:
                     hidden_temp.append(f)
-            except IndexError: _ = 0
+            except IndexError:
+                hidden.append(hidden_temp)
             try: 
                 for b in backward_hidden[1:]:
                     hidden_temp.append(b)
-            except IndexError: _ = 0
-            hidden.append(hidden_temp)
+            except IndexError: 
+                hidden.append(hidden_temp)
 
         for j in range(len(forward[i][4])):
             label_temp = []
@@ -160,13 +163,14 @@ def read_nary_file_tree(inpath, options, is_rev):
             try: 
                 for f in forward_label[1:]:
                     label_temp.append(f)
-            except IndexError: _ = 0
+            except IndexError: 
+                label.append(label_temp)
             try: 
                 for b in backward_label[1:]:
                     label_temp.append(b)
-            except IndexError: _ = 0
-            label.append(label_temp)
-
+            except IndexError: 
+                label.append(label_temp)
+            
         entity.append(forward[i][5])
         y.append([forward[i][6]])
     
