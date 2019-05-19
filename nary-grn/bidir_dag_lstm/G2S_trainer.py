@@ -338,9 +338,9 @@ def main(_):
                     # also, write ground truth, predicted outcome, and entity states respectively
 
                     # first, for the train set
-                    train_jsonify["answer"] = answer
-                    train_jsonify["output"] = prediction
-                    train_jsonify["entity"] = entity
+                    # train_jsonify["answer"] = answer
+                    # train_jsonify["output"] = prediction
+                    # train_jsonify["entity"] = entity
 
                 duration = time.time() - start_time
                 print('Duration %.3f sec' % (duration))
@@ -349,7 +349,7 @@ def main(_):
                 log_file.write('Duration %.3f sec\n' % (duration))
                 log_file.flush()
         # at the end of the loop, dump training resulta
-        json.dump(train_jsonify, open(FLAGS.train_result_path, 'w'))            
+        # json.dump(train_jsonify, open(FLAGS.train_result_path, 'w'))            
     log_file.close()
 
 def enrich_options(options):
