@@ -115,7 +115,7 @@ def read_nary_file_tree(inpath, options, is_rev):
             forward_neighbor = forward[i][2][j]
             # backward
             backward_neighbor = backward[i][2][(-j-1)]
-            backward_neighbor = [(k - len(forward[i][2])) + j) for k in backward_neighbor]
+            backward_neighbor = [(k - len(forward[i][2]) + j) for k in backward_neighbor]
 
             neighbors_temp.append(forward_neighbor[0])
             try: 
@@ -134,7 +134,7 @@ def read_nary_file_tree(inpath, options, is_rev):
             forward_hidden = forward[i][3][j]
             # backward
             backward_hidden = backward[i][3][(-j-1)]
-            backward_hidden = [(k - len(forward[i][3])) + j) for k in backward_hidden]
+            backward_hidden = [(k - len(forward[i][3]) + j) for k in backward_hidden]
 
             hidden_temp.append(forward_hidden[0])
             try: 
