@@ -88,7 +88,7 @@ def read_nary_file(inpath, options, is_rev):
     return zip(all_lex, all_poses, all_in_neigh, all_in_neigh_hidden, all_in_label, all_entity_indices, all_y)
 
 # modified
-def read_nary_file_tree(inpath, options, is_rev):
+def  (inpath, options, is_rev):
     if is_rev:
         forward  = read_nary_file(inpath, options, not is_rev)
         backward = read_nary_file(inpath, options, is_rev)
@@ -107,8 +107,9 @@ def read_nary_file_tree(inpath, options, is_rev):
     
     
     for i in data_length:
-        lex += forward[i][0]
-        poses += forward[i][1]
+        
+        lex = forward[i][0]
+        poses = forward[i][1]
         
         neighbors_temp = []
         for j in range(len(forward[i][2])):
@@ -166,8 +167,8 @@ def read_nary_file_tree(inpath, options, is_rev):
             except IndexError: _ = 0
         label = label_temp
 
-        entity += forward[i][5]
-        y += [forward[i][6]]
+        entity = forward[i][5]
+        y = [forward[i][6]]
 
     return zip(lex, poses, neighbors, hidden, label, entity, y)
 
@@ -177,7 +178,7 @@ def read_nary_from_fof(fofpath, options, is_rev):
     all_instances = []
     for cur_path in all_paths:
         print(cur_path)
-        cur_instances = read_nary_file(cur_path, options, is_rev)
+        cur_instances = read_nary_file_tree(cur_path, options, is_rev)
         all_instances.extend(cur_instances)
     return all_instances
 
