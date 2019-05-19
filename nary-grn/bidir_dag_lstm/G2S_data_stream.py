@@ -99,14 +99,16 @@ def read_nary_file_tree(inpath, options, is_rev):
     data_length = range(len(forward))
     lex = []
     poses = []
-    neighbors = []
-    hidden = []
-    label = []
+    
     entity = []
     y = []
     
     # print(len(forward))
     for i in data_length:
+        neighbors = []
+        hidden = []
+        label = []
+
         if i == 1: print(forward[i][2])
         lex.append(forward[i][0])
         poses.append(forward[i][1])
@@ -145,7 +147,9 @@ def read_nary_file_tree(inpath, options, is_rev):
             label_temp += forward_label
             if len(backward_label) > 1: label_temp += backward_label[1:]
             label.append(label_temp)
-
+        
+        if i == 1: print(label)
+        
         entity.append(forward[i][5])
         y.append([forward[i][6]])
     
