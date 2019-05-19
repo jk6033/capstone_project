@@ -120,17 +120,11 @@ def read_nary_file_tree(inpath, options, is_rev):
             backward_neighbor = [(k - len(forward[i][2]) + j) for k in backward_neighbor]
 
             neighbors_temp.append(forward_neighbor[0])
-            try: 
-                for f in forward_neighbor[1:]:
-                    neighbors_temp.append(f)
-            except IndexError:
-                neighbors.append(neighbors_temp)
-            try: 
-                for b in backward_neighbor[1:]:
-                    neighbors_temp.append(b)
-            except IndexError:
-                neighbors.append(neighbors_temp)
-            
+            try: neighbors_temp.extend(forward_neighbor[1:])
+            except IndexError: _ = 0
+            try: neighbors_temp.extend(backward_neighbor[1:])
+            except IndexError: _ = 0
+            neighbors.append(neighbors_temp)
 
         for j in range(len(forward[i][3])):
             hidden_temp = []
@@ -141,36 +135,26 @@ def read_nary_file_tree(inpath, options, is_rev):
             backward_hidden = [(k - len(forward[i][3]) + j) for k in backward_hidden]
 
             hidden_temp.append(forward_hidden[0])
-            try: 
-                for f in forward_hidden[1:]:
-                    hidden_temp.append(f)
-            except IndexError:
-                hidden.append(hidden_temp)
-            try: 
-                for b in backward_hidden[1:]:
-                    hidden_temp.append(b)
-            except IndexError: 
-                hidden.append(hidden_temp)
+            try: hidden_temp.append(forward_hidden[1:])
+            except IndexError: _ = 0
+            try: hidden_temp.append(backward_hidden[1:])
+            except IndexError: _ = 0
+            hidden.append(hidden_temp)
 
         for j in range(len(forward[i][4])):
-            label_temp = []
+            label_temp= []
             # forward
             forward_label = forward[i][4][j]
             # backward
             backward_label = backward[i][4][(-j-1)]
 
             label_temp.append(forward_label[0]) # aka self
-            try: 
-                for f in forward_label[1:]:
-                    label_temp.append(f)
-            except IndexError: 
-                label.append(label_temp)
-            try: 
-                for b in backward_label[1:]:
-                    label_temp.append(b)
-            except IndexError: 
-                label.append(label_temp)
-            
+            try: label_temp.append(forward_label[1:])
+            except IndexError: _ = 0
+            try: label_temp.append(backward_label[1:])
+            except IndexError: _ = 0
+            label.append(label_temp)
+
         entity.append(forward[i][5])
         y.append([forward[i][6]])
     
