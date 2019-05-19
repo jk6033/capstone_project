@@ -135,9 +135,9 @@ def read_nary_file_tree(inpath, options, is_rev):
             backward_hidden = [(k - len(forward[i][3]) + j) for k in backward_hidden]
 
             hidden_temp.append(forward_hidden[0])
-            try: hidden_temp.append(forward_hidden[1:])
+            try: hidden_temp.extend(forward_hidden[1:])
             except IndexError: _ = 0
-            try: hidden_temp.append(backward_hidden[1:])
+            try: hidden_temp.extend(backward_hidden[1:])
             except IndexError: _ = 0
             hidden.append(hidden_temp)
 
@@ -149,9 +149,9 @@ def read_nary_file_tree(inpath, options, is_rev):
             backward_label = backward[i][4][(-j-1)]
 
             label_temp.append(forward_label[0]) # aka self
-            try: label_temp.append(forward_label[1:])
+            try: label_temp.extend(forward_label[1:])
             except IndexError: _ = 0
-            try: label_temp.append(backward_label[1:])
+            try: label_temp.extend(backward_label[1:])
             except IndexError: _ = 0
             label.append(label_temp)
 
