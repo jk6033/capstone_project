@@ -123,7 +123,7 @@ def read_nary_file_tree(inpath, options, is_rev):
             
             neighbors_temp += forward_neighbor
             if len(backward_neighbor) > 1: neighbors_temp += backward_neighbor[1:]
-            neighbors.append(neighbors_temp)
+        neighbors.append(neighbors_temp)
 
         for j in range(len(forward[i][3])):
             hidden_temp = []
@@ -135,7 +135,7 @@ def read_nary_file_tree(inpath, options, is_rev):
 
             hidden_temp += forward_hidden
             if len(backward_hidden) > 1: hidden_temp += backward_hidden[1:]
-            hidden.append(hidden_temp)
+        hidden.append(hidden_temp)
 
         for j in range(len(forward[i][4])):
             label_temp= []
@@ -146,7 +146,7 @@ def read_nary_file_tree(inpath, options, is_rev):
 
             label_temp += forward_label
             if len(backward_label) > 1: label_temp += backward_label[1:]
-            label.append(label_temp)
+        label.append(label_temp)
         
         if i == 1: print(label)
         
