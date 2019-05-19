@@ -120,7 +120,7 @@ def read_nary_file_tree(inpath, options, is_rev):
             forward_neighbor = forward[i][2][j]
             # backward
             backward_neighbor = backward[i][2][(-j-1)]
-            backward_neighbor = [(k - len(forward[i][2]) + j) for k in backward_neighbor]
+            backward_neighbor = [(len(forward[i][3]) -k + j) for k in backward_neighbor]
             
             temp += forward_neighbor
             if len(backward_neighbor) > 1: temp += backward_neighbor[1:]
