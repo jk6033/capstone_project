@@ -166,7 +166,7 @@ def read_nary_file_tree(inpath, options, is_rev):
         label = label_temp
 
         entity += forward[i][5]
-        y += forward[i][6]
+        y += [forward[i][6]]
 
     return zip(lex, poses, neighbors, hidden, label, entity, y)
 
