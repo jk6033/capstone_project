@@ -94,7 +94,9 @@ def read_nary_from_fof(fofpath, options, is_rev):
     for cur_path in all_paths:
         print(cur_path)
         cur_instances = read_nary_file(cur_path, options, is_rev)
+        flip_instances = read_nary_file(cur_path, options, not is_rev)
         all_instances.extend(cur_instances)
+        all_instances.extend(flip_instances)
     return all_instances
 
 
