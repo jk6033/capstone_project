@@ -105,7 +105,7 @@ def read_nary_file_tree(inpath, options, is_rev):
     entity = []
     y = []
     
-    
+    print(len(forward))
     for i in data_length:
         
         lex = forward[i][0]
@@ -170,7 +170,7 @@ def read_nary_file_tree(inpath, options, is_rev):
         entity = forward[i][5]
         y = [forward[i][6]]
 
-    return tuple(lex, poses, neighbors, hidden, label, entity, y)
+    return zip(lex, poses, neighbors, hidden, label, entity, y)
 
 
 def read_nary_from_fof(fofpath, options, is_rev):
