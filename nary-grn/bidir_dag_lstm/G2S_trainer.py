@@ -268,10 +268,10 @@ def main(_):
             _, loss_value, _, answer_temp, pred_temp, entity_temp, entity_states_for, entity_states_rev = train_graph.execute(
                 sess, cur_batch, cur_batch_rev, FLAGS, is_train=True)
             
-            total_loss += loss_value
-            answer += answer_temp.flatten().tolist()
-            prediction += pred_temp.flatten().tolist()
-            entity += entity_temp.tolist()
+            # total_loss += loss_value
+            # answer += answer_temp.flatten().tolist()
+            # prediction += pred_temp.flatten().tolist()
+            # entity += entity_temp.tolist()
             
             # check for lstm NaN output in entity states
             for w in entity_states_for.flatten():
