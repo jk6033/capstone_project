@@ -133,7 +133,7 @@ def main(_):
         fullset_rev = G2S_data_stream.merge_nary_file(FLAGS.train_path, FLAGS, is_rev=True)
 
     ###
-    printset = fullset[0:5]
+    printset = fullset[0:3]
     # printset_rev = fullset_rev[0]
     print(printset)
     # print(printset_rev)
