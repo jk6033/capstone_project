@@ -191,18 +191,16 @@ def main(_):
     print('Build DataStream ... ')
     trainDataStream = G2S_data_stream.G2SDataStream(trainset, word_vocab, char_vocab, edgelabel_vocab, options=FLAGS,
                  isShuffle=False, isLoop=True, isSort=False)
-    trainDataStreamRev = G2S_data_stream.G2SDataStream(trainset_rev, word_vocab, char_vocab, edgelabel_vocab, options=FLAGS,
-                 isShuffle=False, isLoop=True, isSort=False)
-    #####
-    sys.exit() 
-    #####
+    # trainDataStreamRev = G2S_data_stream.G2SDataStream(trainset_rev, word_vocab, char_vocab, edgelabel_vocab, options=FLAGS,
+    #              isShuffle=False, isLoop=True, isSort=False)
+    
     assert trainDataStream.num_instances == trainDataStreamRev.num_instances
     assert trainDataStream.num_batch == trainDataStreamRev.num_batch
 
     devDataStream = G2S_data_stream.G2SDataStream(devset, word_vocab, char_vocab, edgelabel_vocab, options=FLAGS,
                  isShuffle=False, isLoop=False, isSort=False)
-    devDataStreamRev = G2S_data_stream.G2SDataStream(devset_rev, word_vocab, char_vocab, edgelabel_vocab, options=FLAGS,
-                 isShuffle=False, isLoop=False, isSort=False)
+    # devDataStreamRev = G2S_data_stream.G2SDataStream(devset_rev, word_vocab, char_vocab, edgelabel_vocab, options=FLAGS,
+    #              isShuffle=False, isLoop=False, isSort=False)
     assert devDataStream.num_instances == devDataStreamRev.num_instances
     assert devDataStream.num_batch == devDataStreamRev.num_batch
 
@@ -211,6 +209,10 @@ def main(_):
     print('Number of batches in trainDataStream: {}'.format(trainDataStream.get_num_batch()))
     print('Number of batches in devDataStream: {}'.format(devDataStream.get_num_batch()))
     sys.stdout.flush()
+
+    #####
+    sys.exit() 
+    #####
 
     # initialize the best bleu and accu scores for current training session
     best_accu = FLAGS.best_accu if FLAGS.__dict__.has_key('best_accu') else 0.0
