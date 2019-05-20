@@ -70,7 +70,7 @@ def read_nary_file(inpath, options, is_rev):
                         in_neigh[j].append(i)
                         in_neigh_hidden[j].append(i+1)
 
-                        in_label[j].append(l) # ["self", "depinv:poss"]
+                        in_label[j].append(l)
             all_in_neigh.append(in_neigh)
             all_in_neigh_hidden.append(in_neigh_hidden)
             all_in_label.append(in_label)
@@ -96,18 +96,20 @@ def merge_nary_file(inpath, options, is_rev):
         forward  = read_nary_file(inpath, options, is_rev)
         backward = read_nary_file(inpath, options, not is_rev)
 
-    lex = []; poses = [];entity = []; y = []    
+    lex = []; poses = [];entity = []; neighbors = []; hidden = []; label = []; y = []    
     for i in range(len(forward)):
         if i == 0: 
             print(forward[i])
             print(backward[i])
-        neighbors = []; hidden = []; label = []
 
+        # all lex
         lex.append(forward[i][0])
-        poses.append(forward[i][1])
-        assert len(forward[i][0]) == len(forward[i][1])
 
-        # if i == 1: print(forward[i][2])
+        # all poses
+        assert len(forward[i][0]) == len(forward[i][1])
+        poses.append(forward[i][1])
+
+        # all neighbors
         neighbors_temp = []
         assert len(forward[i][0]) == len(forward[i][2])
         for j in range(len(forward[i][2])):
@@ -153,7 +155,6 @@ def merge_nary_file(inpath, options, is_rev):
             backward_label = backward[i][4][len(forward[i][4])-j-1]
 
             assert forward_neighbor[0] == backward_neighbor[0]
-            # assert forward_neighbor[0] == "self"
 
             temp += forward_label
             if len(backward_label) > 1: temp += backward_label[1:]

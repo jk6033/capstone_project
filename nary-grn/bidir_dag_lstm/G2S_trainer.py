@@ -126,7 +126,6 @@ def main(_):
     print('Loading train set.')
     # to be modified
     if FLAGS.infile_format == 'fof':
-        print("Hey!")
         fullset = G2S_data_stream.read_nary_from_fof(FLAGS.train_path, FLAGS, is_rev=False)
         fullset_rev = G2S_data_stream.read_nary_from_fof(FLAGS.train_path, FLAGS, is_rev=True)
     else:
