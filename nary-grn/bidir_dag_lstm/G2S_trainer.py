@@ -127,17 +127,15 @@ def main(_):
     # to be modified
     if FLAGS.infile_format == 'fof':
         fullset = G2S_data_stream.read_nary_from_fof(FLAGS.train_path, FLAGS, is_rev=False)
-        fullset_rev = G2S_data_stream.read_nary_from_fof(FLAGS.train_path, FLAGS, is_rev=True)
+        # fullset_rev = G2S_data_stream.read_nary_from_fof(FLAGS.train_path, FLAGS, is_rev=True)
     else:
         fullset = G2S_data_stream.merge_nary_file(FLAGS.train_path, FLAGS, is_rev=False)
-        fullset_rev = G2S_data_stream.merge_nary_file(FLAGS.train_path, FLAGS, is_rev=True)
+        # fullset_rev = G2S_data_stream.merge_nary_file(FLAGS.train_path, FLAGS, is_rev=True)
 
-    ###
-    printset = fullset[0:3]
-    # printset_rev = fullset_rev[0]
-    print(printset)
-    # print(printset_rev)
-    sys.exit()
+    ### modified
+    # printset = fullset[0:3]
+    # print(printset)
+    # sys.exit()
     ###
 
     ids = range(len(fullset))
@@ -145,11 +143,13 @@ def main(_):
     random.shuffle(ids)
 
     devset = [fullset[x] for x in ids[:200]]
-    devset_rev = [fullset_rev[x] for x in ids[:200]]
+    # devset_rev = [fullset_rev[x] for x in ids[:200]]
     trainset = [fullset[x] for x in ids[200:]]
-    trainset_rev = [fullset_rev[x] for x in ids[200:]]
-    print('Number of training samples: {}/{}'.format(len(trainset),len(trainset_rev)))
-    print('Number of dev samples: {}/{}'.format(len(devset),len(devset_rev)))
+    # trainset_rev = [fullset_rev[x] for x in ids[200:]]
+    # print('Number of training samples: {}/{}'.format(len(trainset),len(trainset_rev)))
+    # print('Number of dev samples: {}/{}'.format(len(devset),len(devset_rev)))
+    print('Number of training samples: {}'.format(len(trainset)))
+    print('Number of dev samples: {}'.format(len(devset)))
 
     word_vocab = None
     char_vocab = None
@@ -169,10 +169,10 @@ def main(_):
     else:
         print('Collecting vocabs.')
         (allWords, allChars, allEdgelabels) = G2S_data_stream.collect_vocabs(trainset)
-        (aaa, bbb, ccc) = G2S_data_stream.collect_vocabs(trainset_rev)
-        allWords |= aaa
-        allChars |= bbb
-        allEdgelabels |= ccc
+        # (aaa, bbb, ccc) = G2S_data_stream.collect_vocabs(trainset_rev)
+        # allWords |= aaa
+        # allChars |= bbb
+        # allEdgelabels |= ccc
         print('Number of words: {}'.format(len(allWords)))
         print('Number of allChars: {}'.format(len(allChars)))
         print('Number of allEdgelabels: {}'.format(len(allEdgelabels)))
@@ -193,6 +193,9 @@ def main(_):
                  isShuffle=False, isLoop=True, isSort=False)
     trainDataStreamRev = G2S_data_stream.G2SDataStream(trainset_rev, word_vocab, char_vocab, edgelabel_vocab, options=FLAGS,
                  isShuffle=False, isLoop=True, isSort=False)
+    #####
+    sys.exit() 
+    #####
     assert trainDataStream.num_instances == trainDataStreamRev.num_instances
     assert trainDataStream.num_batch == trainDataStreamRev.num_batch
 
