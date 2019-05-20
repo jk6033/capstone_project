@@ -145,8 +145,6 @@ class ModelGraph(object):
                 tf.one_hot(self.answers, options.class_num)*tf.log(prediction), axis=-1)
         self.loss = tf.reduce_mean(xent)
 
-
-
         if mode != 'train':
             print('Return from here, just evaluate')
             return
@@ -185,8 +183,8 @@ class ModelGraph(object):
         self.train_op = tf.group(*train_ops)
 
 
-    def execute(self, sess, batch, batch_rev, options, is_train=False):
-        
+    # def execute(self, sess, batch, batch_rev, options, is_train=False):
+    def execute(self, sess, batch, options, is_train=False):
         feed_dict = {}
         # mono
         feed_dict[self.nodes] = batch.nodes
@@ -201,44 +199,33 @@ class ModelGraph(object):
         feed_dict[self.in_neigh_mask] = batch.in_neigh_mask
 
         # rev
-        feed_dict[self.rev_nodes] = batch_rev.nodes
-        feed_dict[self.rev_nodes_num] = batch_rev.node_num
-        if options.with_char:
-            feed_dict[self.rev_nodes_chars] = batch_rev.nodes_chars
-            feed_dict[self.rev_nodes_chars_num] = batch_rev.nodes_chars_num
+        # feed_dict[self.rev_nodes] = batch_rev.nodes
+        # feed_dict[self.rev_nodes_num] = batch_rev.node_num
+        # if options.with_char:
+        #     feed_dict[self.rev_nodes_chars] = batch_rev.nodes_chars
+        #     feed_dict[self.rev_nodes_chars_num] = batch_rev.nodes_chars_num
 
-        feed_dict[self.rev_in_neigh_indices] = batch_rev.in_neigh_indices
-        feed_dict[self.rev_in_neigh_hidden_indices] = batch_rev.in_neigh_hidden_indices
-        feed_dict[self.rev_in_neigh_edges] = batch_rev.in_neigh_edges
-        feed_dict[self.rev_in_neigh_mask] = batch_rev.in_neigh_mask
+        # feed_dict[self.rev_in_neigh_indices] = batch_rev.in_neigh_indices
+        # feed_dict[self.rev_in_neigh_hidden_indices] = batch_rev.in_neigh_hidden_indices
+        # feed_dict[self.rev_in_neigh_edges] = batch_rev.in_neigh_edges
+        # feed_dict[self.rev_in_neigh_mask] = batch_rev.in_neigh_mask
 
         # mono
         feed_dict[self.entity.entity_indices] = batch.entity_indices
         feed_dict[self.entity.entity_indices_mask] = batch.entity_indices_mask
 
         # rev
-        feed_dict[self.entity_rev.entity_indices] = batch_rev.entity_indices
-        feed_dict[self.entity_rev.entity_indices_mask] = batch_rev.entity_indices_mask
+        # feed_dict[self.entity_rev.entity_indices] = batch_rev.entity_indices
+        # feed_dict[self.entity_rev.entity_indices_mask] = batch_rev.entity_indices_mask
 
         feed_dict[self.answers] = batch.y
 
         if is_train:
-            return sess.run([
-                        self.accu, 
-                        self.loss, 
-                        self.train_op, 
-                        self.answers,
-                        self.output,
-                        self.entity_states, 
-                        self.entity.entity_states, 
-                        self.entity_rev.entity_states], feed_dict)
+            return sess.run([self.accu, self.loss, self.train_op, self.answers,
+                        self.output, self.entity_states], feed_dict)
         else:
-            return sess.run([
-                        self.accu, 
-                        self.loss, 
-                        self.answers,
-                        self.output,
-                        self.entity_states], feed_dict)
+            return sess.run([self.accu, self.loss, self.answers,
+                        self.output, self.entity_states], feed_dict)
 
 
 if __name__ == '__main__':

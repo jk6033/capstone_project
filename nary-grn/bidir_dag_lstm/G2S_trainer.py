@@ -59,9 +59,10 @@ def document_bleu(vocab, gen, ref, suffix=''):
     return corpus_bleu(reflst, genlst, smoothing_function=cc.method3)
 
 
-def evaluate(sess, valid_graph, devDataStream, devDataStreamRev, options=None, suffix=''):
+# def evaluate(sess, valid_graph, devDataStream, devDataStreamRev, options=None, suffix=''):
+def evaluate(sess, valid_graph, devDataStream, options=None, suffix=''):
     devDataStream.reset()
-    devDataStreamRev.reset()
+    # devDataStreamRev.reset()
     gen = []
     ref = []
     dev_loss = 0.0
@@ -73,10 +74,12 @@ def evaluate(sess, valid_graph, devDataStream, devDataStreamRev, options=None, s
     entities = []
     for batch_index in xrange(devDataStream.get_num_batch()): # for each batch
         cur_batch = devDataStream.get_batch(batch_index)
-        cur_batch_rev = devDataStreamRev.get_batch(batch_index)
+        # cur_batch_rev = devDataStreamRev.get_batch(batch_index)
         
+        # accu_value, loss_value, truth_value, output_value, entity_states = valid_graph.execute(
+        #     sess, cur_batch, cur_batch_rev, options, is_train=False)
         accu_value, loss_value, truth_value, output_value, entity_states = valid_graph.execute(
-            sess, cur_batch, cur_batch_rev, options, is_train=False)
+            sess, cur_batch, options, is_train=False)
         # instances += cur_bath.instances
         
         answers += truth_value.flatten().tolist()
@@ -252,7 +255,9 @@ def main(_):
 
             if abs(best_accu) < 0.00001:
                 print("Getting ACCU score for the model")
-                best_accu = evaluate(sess, valid_graph, devDataStream, devDataStreamRev, options=FLAGS)['dev_accu']
+                # to be modified
+                # best_accu = evaluate(sess, valid_graph, devDataStream, devDataStreamRev, options=FLAGS)['dev_accu']
+                best_accu = evaluate(sess, valid_graph, devDataStream, options=FLAGS)['dev_accu']
                 FLAGS.best_accu = best_accu
                 namespace_utils.save_namespace(FLAGS, path_prefix + ".config.json")
                 print('ACCU = %.4f' % best_accu)
@@ -274,14 +279,15 @@ def main(_):
 
         for step in xrange(max_steps):
             cur_batch = trainDataStream.nextBatch()
-            cur_batch_rev = trainDataStreamRev.nextBatch()
-            assert trainDataStream.cur_pointer == trainDataStreamRev.cur_pointer
-            assert cur_batch.batch_size == cur_batch_rev.batch_size
-            assert np.array_equal(cur_batch.node_num, cur_batch_rev.node_num)
-            assert np.array_equal(cur_batch.y, cur_batch_rev.y)
+            # cur_batch_rev = trainDataStreamRev.nextBatch()
+            # assert trainDataStream.cur_pointer == trainDataStreamRev.cur_pointer
+            # assert cur_batch.batch_size == cur_batch_rev.batch_size
+            # assert np.array_equal(cur_batch.node_num, cur_batch_rev.node_num)
+            # assert np.array_equal(cur_batch.y, cur_batch_rev.y)
             
-            _, loss_value, _, answer_temp, pred_temp, entity_temp, entity_states_for, entity_states_rev = train_graph.execute(
-                sess, cur_batch, cur_batch_rev, FLAGS, is_train=True)
+            # _, loss_value, _, answer_temp, pred_temp, entity_temp, entity_states_for, entity_states_rev = train_graph.execute(
+            #     sess, cur_batch, cur_batch_rev, FLAGS, is_train=True)
+            _,loss_value,_,answer_temp,pred_temp,entity_temp = train_graph.execute(sess, cur_batch, FLAGS, is_train=True)
             
             total_loss += loss_value
             answer += answer_temp.flatten().tolist()
@@ -289,23 +295,25 @@ def main(_):
             entity += entity_temp.tolist()
             
             # check for lstm NaN output in entity states
-            for w in entity_states_for.flatten():
+            for w in entity_temp.flatten():
                 if math.isnan(w): 
                     print("NaN detected in entity_states_for")
                     break
-            for b in entity_states_rev.flatten():
-                if math.isnan(b): 
-                    print("NaN detected in entity_states_rev")
-                    break
             
+            # So far we are here #####
+            # sys.exit() 
+            # #####
+
             total_loss += loss_value
             answer += answer_temp.flatten().tolist()
             prediction += pred_temp.flatten().tolist()
             entity += entity_temp.tolist()
             
             if trainDataStream.cur_pointer >= trainDataStream.num_batch:
-                assert trainDataStreamRev.cur_pointer >= trainDataStreamRev.num_batch
-                shuffle_both(trainDataStream, trainDataStreamRev)
+                # assert trainDataStreamRev.cur_pointer >= trainDataStreamRev.num_batch
+                # shuffle_both(trainDataStream, trainDataStreamRev)
+                np.random.shuffle(trainDataStream.index_array)
+                
 
             if step % 100==0:
                 print('{} '.format(step), end="")
@@ -325,7 +333,8 @@ def main(_):
                 # Evaluate against the validation set.
                 start_time = time.time()
                 print('Validation Data Eval:')
-                res_dict = evaluate(sess, valid_graph, devDataStream, devDataStreamRev, options=FLAGS, suffix=str(step))
+                # res_dict = evaluate(sess, valid_graph, devDataStream, devDataStreamRev, options=FLAGS, suffix=str(step))
+                res_dict = evaluate(sess, valid_graph, devDataStream, options=FLAGS, suffix=str(step))
                 
                 dev_loss = res_dict['dev_loss']
                 dev_accu = res_dict['dev_accu']
