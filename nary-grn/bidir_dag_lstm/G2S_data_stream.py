@@ -97,19 +97,13 @@ def read_nary_file_tree(inpath, options, is_rev):
         backward = read_nary_file(inpath, options, not is_rev)
 
     data_length = range(len(forward))
-    lex = []
-    poses = []
+    lex = []; poses = [];entity = []; y = []
     
-    entity = []
-    y = []
-    
-    # print(len(forward))
     for i in data_length:
         neighbors = []
         hidden = []
         label = []
 
-        # if i == 1: print(forward[i][2])
         lex.append(forward[i][0])
         poses.append(forward[i][1])
         
@@ -120,7 +114,7 @@ def read_nary_file_tree(inpath, options, is_rev):
             forward_neighbor = forward[i][2][j]
             # backward
             backward_neighbor = backward[i][2][len(forward[i][2])-j-1]
-            backward_neighbor = [(len(forward[i][2]) -k) for k in backward_neighbor]
+            backward_neighbor = [(len(forward[i][2])-k-1) for k in backward_neighbor]
             
             temp += forward_neighbor
             if len(backward_neighbor) > 1: temp += backward_neighbor[1:]
@@ -134,7 +128,7 @@ def read_nary_file_tree(inpath, options, is_rev):
             forward_hidden = forward[i][3][j]
             # backward
             backward_hidden = backward[i][3][len(forward[i][3])-j-1]
-            backward_hidden = [(len(forward[i][3]) -k) for k in backward_hidden]
+            backward_hidden = [(len(forward[i][3])-k-1) for k in backward_hidden]
 
             temp += forward_hidden
             if len(backward_hidden) > 1: temp += backward_hidden[1:]
