@@ -103,6 +103,7 @@ def read_nary_file_tree(inpath, options, is_rev):
         lex.append(forward[i][0])
         poses.append(forward[i][1])
         
+        if i == 1: print(forward[i][2])
         neighbors_temp = []
         for j in range(len(forward[i][2])):
             temp = []
