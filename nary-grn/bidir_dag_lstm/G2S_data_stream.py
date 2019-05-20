@@ -137,7 +137,6 @@ def merge_nary_file(inpath, options, is_rev):
             backward_hidden = [(len(forward[i][3])-k+1) for k in backward_hidden]
 
             assert forward_neighbor[0] == backward_neighbor[0]
-            assert forward_neighbor[0] == 0
 
             temp += forward_hidden
             if len(backward_hidden) > 1: temp += backward_hidden[1:]
