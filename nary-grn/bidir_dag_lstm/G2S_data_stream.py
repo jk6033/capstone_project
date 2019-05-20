@@ -162,7 +162,7 @@ def merge_nary_file(inpath, options, is_rev):
         label.append(label_temp)
         
         entity.append(forward[i][5])
-        y.append([forward[i][6]])
+        y.append(forward[i][6])
     
     return zip(lex, poses, neighbors, hidden, label, entity, y)
 
