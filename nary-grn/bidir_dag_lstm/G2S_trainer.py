@@ -210,9 +210,9 @@ def main(_):
     print('Number of batches in devDataStream: {}'.format(devDataStream.get_num_batch()))
     sys.stdout.flush()
 
-    #####
-    sys.exit() 
-    #####
+    # So far we are here #####
+    # sys.exit() 
+    # #####
 
     # initialize the best bleu and accu scores for current training session
     best_accu = FLAGS.best_accu if FLAGS.__dict__.has_key('best_accu') else 0.0

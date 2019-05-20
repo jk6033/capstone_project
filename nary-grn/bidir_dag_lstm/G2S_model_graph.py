@@ -54,16 +54,18 @@ class ModelGraph(object):
                     char_vocab = char_vocab,
                     is_training = is_training, options = options)
 
-        with tf.variable_scope('rev_encoder'):
-            self.encoder_rev = dag_encoder_utils.GraphEncoder(
-                    word_vocab = word_vocab,
-                    edge_label_vocab = Edgelabel_vocab,
-                    char_vocab = char_vocab,
-                    is_training = is_training, options = options)
+        # modified
+        # with tf.variable_scope('rev_encoder'):
+        #     self.encoder_rev = dag_encoder_utils.GraphEncoder(
+        #             word_vocab = word_vocab,
+        #             edge_label_vocab = Edgelabel_vocab,
+        #             char_vocab = char_vocab,
+        #             is_training = is_training, options = options)
 
         with tf.variable_scope('entity_repre'):
             self.entity = entity_utils.Entity(self.encoder.graph_hiddens)
-            self.entity_rev = entity_utils.Entity(self.encoder_rev.graph_hiddens)
+            # modified
+            # self.entity_rev = entity_utils.Entity(self.encoder_rev.graph_hiddens)
 
             batch_size = tf.shape(self.encoder.graph_hiddens)[0]
             node_num = tf.shape(self.encoder.graph_hiddens)[1]
@@ -73,10 +75,11 @@ class ModelGraph(object):
 
             self.encoder_dim = options.neighbor_vector_dim * 2
             # [batch, 3, encoder_dim]
-            entity_states = tf.concat(
-                    [self.entity.entity_states, self.entity_rev.entity_states], 2)
+            # entity_states = tf.concat(
+            #         [self.entity.entity_states, self.entity_rev.entity_states], 2)
+            entity_states = self.entity.entity_states
             # [batch, 3*encoder_dim]
-            entity_states = tf.reshape(entity_states, [batch_size, entity_num*dim*2])
+            entity_states = tf.reshape(entity_states, [batch_size, entity_num*dim*]) # 2])
 
         ###
         self.entity_states = entity_states
