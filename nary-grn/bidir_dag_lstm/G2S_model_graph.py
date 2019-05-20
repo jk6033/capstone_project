@@ -73,7 +73,7 @@ class ModelGraph(object):
             entity_num = tf.shape(self.entity.entity_indices)[1]
             entity_size = tf.shape(self.entity.entity_indices)[2]
 
-            self.encoder_dim = options.neighbor_vector_dim * 2
+            self.encoder_dim = options.neighbor_vector_dim # * 2
             # [batch, 3, encoder_dim]
             # entity_states = tf.concat(
             #         [self.entity.entity_states, self.entity_rev.entity_states], 2)
