@@ -79,7 +79,7 @@ class ModelGraph(object):
             #         [self.entity.entity_states, self.entity_rev.entity_states], 2)
             entity_states = self.entity.entity_states
             # [batch, 3*encoder_dim]
-            entity_states = tf.reshape(entity_states, [batch_size, entity_num*dim*]) # 2])
+            entity_states = tf.reshape(entity_states, [batch_size, entity_num*dim]) # *2])
 
         ###
         self.entity_states = entity_states
@@ -99,17 +99,17 @@ class ModelGraph(object):
         self.in_neigh_mask = self.encoder.passage_in_neighbor_mask
 
         # rev placeholders
-        self.rev_nodes = self.encoder_rev.passage_nodes
-        self.rev_nodes_num = self.encoder_rev.passage_nodes_size
-        if options.with_char:
-            self.rev_nodes_chars = self.encoder_rev.passage_nodes_chars
-            self.rev_nodes_chars_num = self.encoder_rev.passage_nodes_chars_size
-        self.rev_nodes_mask = self.encoder_rev.passage_nodes_mask
+        # self.rev_nodes = self.encoder_rev.passage_nodes
+        # self.rev_nodes_num = self.encoder_rev.passage_nodes_size
+        # if options.with_char:
+        #     self.rev_nodes_chars = self.encoder_rev.passage_nodes_chars
+        #     self.rev_nodes_chars_num = self.encoder_rev.passage_nodes_chars_size
+        # self.rev_nodes_mask = self.encoder_rev.passage_nodes_mask
 
-        self.rev_in_neigh_indices = self.encoder_rev.passage_in_neighbor_indices
-        self.rev_in_neigh_hidden_indices = self.encoder_rev.passage_in_neighbor_hidden_indices
-        self.rev_in_neigh_edges = self.encoder_rev.passage_in_neighbor_edges
-        self.rev_in_neigh_mask = self.encoder_rev.passage_in_neighbor_mask
+        # self.rev_in_neigh_indices = self.encoder_rev.passage_in_neighbor_indices
+        # self.rev_in_neigh_hidden_indices = self.encoder_rev.passage_in_neighbor_hidden_indices
+        # self.rev_in_neigh_edges = self.encoder_rev.passage_in_neighbor_edges
+        # self.rev_in_neigh_mask = self.encoder_rev.passage_in_neighbor_mask
 
 
         w1 = tf.get_variable("w1",
