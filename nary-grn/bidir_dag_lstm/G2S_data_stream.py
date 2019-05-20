@@ -144,7 +144,7 @@ def read_nary_file_tree(inpath, options, is_rev):
             backward_label = backward[i][4][len(forward[i][4])-j-1]
 
             assert forward_neighbor[0] == backward_neighbor[0]
-            assert forward_neighbor[0] == "self"
+            # assert forward_neighbor[0] == "self"
 
             temp += forward_label
             if len(backward_label) > 1: temp += backward_label[1:]
