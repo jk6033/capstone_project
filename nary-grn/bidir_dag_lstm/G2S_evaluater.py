@@ -54,20 +54,20 @@ if __name__ == '__main__':
     print('Loading test set from {}.'.format(in_path))
     if FLAGS.infile_format == 'fof':
         testset = G2S_data_stream.read_nary_from_fof(in_path, FLAGS, is_rev=False)
-        testset_rev = G2S_data_stream.read_nary_from_fof(in_path, FLAGS, is_rev=True)
+        # testset_rev = G2S_data_stream.read_nary_from_fof(in_path, FLAGS, is_rev=True)
     else:
-        testset = G2S_data_stream.read_nary_file(in_path, FLAGS, is_rev=False)
-        testset_rev = G2S_data_stream.read_nary_file(in_path, FLAGS, is_rev=True)
+        testset = G2S_data_stream.merge_nary_file(in_path, FLAGS, is_rev=False)
+        # testset_rev = G2S_data_stream.read_nary_file(in_path, FLAGS, is_rev=True)
     print('Number of samples: {}'.format(len(testset)))
 
     print('Build DataStream ... ')
     batch_size=-1
     devDataStream = G2S_data_stream.G2SDataStream(testset, word_vocab, char_vocab, edgelabel_vocab, options=FLAGS,
                  isShuffle=False, isLoop=False, isSort=False, batch_size=batch_size)
-    devDataStreamRev = G2S_data_stream.G2SDataStream(testset_rev, word_vocab, char_vocab, edgelabel_vocab, options=FLAGS,
-                 isShuffle=False, isLoop=False, isSort=False, batch_size=batch_size)
-    assert devDataStream.num_instances == devDataStreamRev.num_instances
-    assert devDataStream.num_batch == devDataStreamRev.num_batch
+    # devDataStreamRev = G2S_data_stream.G2SDataStream(testset_rev, word_vocab, char_vocab, edgelabel_vocab, options=FLAGS,
+    #              isShuffle=False, isLoop=False, isSort=False, batch_size=batch_size)
+    # assert devDataStream.num_instances == devDataStreamRev.num_instances
+    # assert devDataStream.num_batch == devDataStreamRev.num_batch
     print('Number of instances in testDataStream: {}'.format(devDataStream.get_num_instance()))
     print('Number of batches in testDataStream: {}'.format(devDataStream.get_num_batch()))
 
@@ -109,15 +109,17 @@ if __name__ == '__main__':
         start_time = time.time()
         for batch_index in xrange(devDataStream.get_num_batch()): # for each batch
             cur_batch = devDataStream.get_batch(batch_index)
-            cur_batch_rev = devDataStreamRev.get_batch(batch_index)
-            assert cur_batch.batch_size == cur_batch_rev.batch_size
-            assert np.array_equal(cur_batch.node_num, cur_batch_rev.node_num)
-            assert np.array_equal(cur_batch.y, cur_batch_rev.y)
+            # cur_batch_rev = devDataStreamRev.get_batch(batch_index)
+            # assert cur_batch.batch_size == cur_batch_rev.batch_size
+            # assert np.array_equal(cur_batch.node_num, cur_batch_rev.node_num)
+            # assert np.array_equal(cur_batch.y, cur_batch_rev.y)
+            # accu_value, loss_value, truth_value, output_value, entity_states = valid_graph.execute(
+            #         sess, cur_batch, cur_batch_rev, FLAGS, is_train=False)
             accu_value, loss_value, truth_value, output_value, entity_states = valid_graph.execute(
-                    sess, cur_batch, cur_batch_rev, FLAGS, is_train=False)
+                    sess, cur_batch, FLAGS, is_train=False)
             
             instances += cur_batch.instances
-            instances_rev += cur_batch_rev.instances
+            # instances_rev += cur_batch_rev.instances
 
             answers += truth_value.flatten().tolist()
             outputs += output_value.flatten().tolist()
@@ -131,8 +133,9 @@ if __name__ == '__main__':
         duration = time.time() - start_time
         print('Decoding time %.3f sec' % (duration))
 
-        assert len(instances) == len(instances_rev) and len(instances) == len(outputs)
-        json.dump((instances,instances_rev,outputs,testset,testset_rev), open(out_path,'w'))
+        # assert len(instances) == len(instances_rev) and len(instances) == len(outputs)
+        # json.dump((instances,instances_rev,outputs,testset,testset_rev), open(out_path,'w'))
+        json.dump((instances, outputs, testset), open(out_path,'w'))
 
         test_jsonify = {
             "answer": answers, "output": outputs, "entity": entities}
