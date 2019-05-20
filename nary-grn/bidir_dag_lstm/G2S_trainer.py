@@ -194,15 +194,15 @@ def main(_):
     # trainDataStreamRev = G2S_data_stream.G2SDataStream(trainset_rev, word_vocab, char_vocab, edgelabel_vocab, options=FLAGS,
     #              isShuffle=False, isLoop=True, isSort=False)
     
-    assert trainDataStream.num_instances == trainDataStreamRev.num_instances
-    assert trainDataStream.num_batch == trainDataStreamRev.num_batch
+    # assert trainDataStream.num_instances == trainDataStreamRev.num_instances
+    # assert trainDataStream.num_batch == trainDataStreamRev.num_batch
 
     devDataStream = G2S_data_stream.G2SDataStream(devset, word_vocab, char_vocab, edgelabel_vocab, options=FLAGS,
                  isShuffle=False, isLoop=False, isSort=False)
     # devDataStreamRev = G2S_data_stream.G2SDataStream(devset_rev, word_vocab, char_vocab, edgelabel_vocab, options=FLAGS,
     #              isShuffle=False, isLoop=False, isSort=False)
-    assert devDataStream.num_instances == devDataStreamRev.num_instances
-    assert devDataStream.num_batch == devDataStreamRev.num_batch
+    # assert devDataStream.num_instances == devDataStreamRev.num_instances
+    # assert devDataStream.num_batch == devDataStreamRev.num_batch
 
     print('Number of instances in trainDataStream: {}'.format(trainDataStream.get_num_instance()))
     print('Number of instances in devDataStream: {}'.format(devDataStream.get_num_instance()))
