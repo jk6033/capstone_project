@@ -98,9 +98,9 @@ def merge_nary_file(inpath, options, is_rev):
 
     lex = []; poses = [];entity = []; neighbors = []; hidden = []; label = []; y = []    
     for i in range(len(forward)):
-        if i == 0: 
-            print(forward[i])
-            print(backward[i])
+        # if i == 0: 
+        #     print(forward[i])
+        #     print(backward[i])
 
         # all lex
         lex.append(forward[i][0])
