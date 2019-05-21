@@ -119,7 +119,7 @@ if __name__ == '__main__':
             instances += cur_batch.instances
             instances_rev += cur_batch_rev.instances
 
-            sentences.append(cur_batch.instances[-1])
+            sentences.append(cur_batch.instances)
 
             answers += truth_value.flatten().tolist()
             outputs += output_value.flatten().tolist()
