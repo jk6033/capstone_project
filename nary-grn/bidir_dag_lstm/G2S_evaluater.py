@@ -133,7 +133,7 @@ if __name__ == '__main__':
 
         # assert len(instances) == len(instances_rev) and len(instances) == len(outputs)
         # json.dump((instances,instances_rev,outputs,testset,testset_rev), open(out_path,'w'))
-        json.dump((sentences, answers, outputs), open('logs/result_c_m_0.json','w'))
+        json.dump((instances, answers, outputs), open('logs/result_c_m_0.json','w'))
 
         test_jsonify = {
             "answer": answers, "output": outputs, "entity": entities}
