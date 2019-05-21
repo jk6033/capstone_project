@@ -95,10 +95,8 @@ if __name__ == '__main__':
 
         devDataStream.reset()
         instances = []; instances_rev = []
-        sentences = []
 
-        answers = []
-        outputs = []
+        answers = []; outputs = []
         
         test_loss = 0.0
         test_right = 0.0
@@ -123,8 +121,6 @@ if __name__ == '__main__':
 
             answers += truth_value.flatten().tolist()
             outputs += output_value.flatten().tolist()
-
-            sentences.append(cur_batch.instances[-1])
             
             test_loss += loss_value
             test_right += accu_value
