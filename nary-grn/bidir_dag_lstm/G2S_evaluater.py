@@ -94,8 +94,8 @@ if __name__ == '__main__':
         saver.restore(sess, best_path) # restore the model
 
         devDataStream.reset()
-        instances = []
-        instances_rev = []
+        instances = []; instances_rev = []
+        sentences = []
 
         answers = []
         outputs = []
@@ -124,6 +124,8 @@ if __name__ == '__main__':
             answers += truth_value.flatten().tolist()
             outputs += output_value.flatten().tolist()
 
+            sentences.append(cur_batch.instances[-1])
+            
             test_loss += loss_value
             test_right += accu_value
             test_total += cur_batch.batch_size
@@ -135,7 +137,7 @@ if __name__ == '__main__':
 
         # assert len(instances) == len(instances_rev) and len(instances) == len(outputs)
         # json.dump((instances,instances_rev,outputs,testset,testset_rev), open(out_path,'w'))
-        json.dump((instances, outputs, testset), open(out_path,'w'))
+        json.dump((sentences, answers, outputs), open('logs/result_c_m_0.json','w'))
 
         test_jsonify = {
             "answer": answers, "output": outputs, "entity": entities}
