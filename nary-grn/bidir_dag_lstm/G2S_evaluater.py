@@ -133,7 +133,7 @@ if __name__ == '__main__':
         print('Decoding time %.3f sec' % (duration))
 
         assert len(instances) == len(instances_rev) and len(instances) == len(outputs)
-        json.dump((sentences,outputs,answers), open("logs/result_c_m_0.json",'w'))
+        json.dump((sentences, answers, outputs), open("logs/result_c_m_0.json",'w'))
 
         test_jsonify = {
             "answer": answers, "output": outputs, "entity": entities}
