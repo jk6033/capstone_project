@@ -89,7 +89,6 @@ def read_nary_from_fof(fofpath, options, is_rev):
         all_instances.extend(cur_instances)
     return all_instances
 
-
 def collect_vocabs(all_instances):
     all_words = set()
     all_chars = set()
@@ -121,7 +120,7 @@ class G2SDataStream(object):
             if options.with_char:
                 lex_chars_idx = char_vocab.to_character_matrix_for_list(lex, max_char_per_word=options.max_char_per_word)
             in_label_idx = [edgelabel_vocab.to_index_sequence_for_list(edges) for edges in in_label]
-            instances.append((lex_idx, lex_chars_idx, in_neigh, in_neigh_hidden, in_label_idx, entity_indices, y))
+            instances.append((lex, lex_idx, lex_chars_idx, in_neigh, in_neigh_hidden, in_label_idx, entity_indices, y))
 
         all_instances = instances
         instances = None
