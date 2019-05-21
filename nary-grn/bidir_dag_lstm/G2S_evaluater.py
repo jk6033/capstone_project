@@ -94,11 +94,10 @@ if __name__ == '__main__':
         saver.restore(sess, best_path) # restore the model
 
         devDataStream.reset()
-        instances = []
-        instances_rev = []
+        instances = []; instances_rev = []
 
-        answers = []
-        outputs = []
+        answers = []; outputs = []
+        sentences = []
         
         test_loss = 0.0
         test_right = 0.0
@@ -119,6 +118,8 @@ if __name__ == '__main__':
             instances += cur_batch.instances
             instances_rev += cur_batch_rev.instances
 
+            sentences.append(cur_batch.instances[-1])
+
             answers += truth_value.flatten().tolist()
             outputs += output_value.flatten().tolist()
 
@@ -132,7 +133,7 @@ if __name__ == '__main__':
         print('Decoding time %.3f sec' % (duration))
 
         assert len(instances) == len(instances_rev) and len(instances) == len(outputs)
-        json.dump((instances,instances_rev,outputs,testset,testset_rev), open(out_path,'w'))
+        json.dump((sentences,outputs,answers), open("logs/result_c_m_0.json",'w'))
 
         test_jsonify = {
             "answer": answers, "output": outputs, "entity": entities}

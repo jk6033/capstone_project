@@ -126,7 +126,7 @@ class G2SDataStream(object):
             if options.with_char:
                 lex_chars_idx = char_vocab.to_character_matrix_for_list(lex, max_char_per_word=options.max_char_per_word)
             in_label_idx = [edgelabel_vocab.to_index_sequence_for_list(edges) for edges in in_label]
-            instances.append((lex_idx, lex_chars_idx, in_neigh, in_neigh_hidden, in_label_idx, entity_indices, y))
+            instances.append((lex_idx, lex_chars_idx, in_neigh, in_neigh_hidden, in_label_idx, entity_indices, y, lex))
 
         all_instances = instances
         instances = None
@@ -189,7 +189,7 @@ class G2SBatch(object):
 
         # node num
         self.node_num = [] # [batch_size]
-        for (lex_idx, lex_chars_idx, in_neigh, in_neigh_hidden, in_label_idx, entity_indices, y) in instances:
+        for (lex_idx, lex_chars_idx, in_neigh, in_neigh_hidden, in_label_idx, entity_indices, y, lex) in instances:
             self.node_num.append(len(lex_idx))
         self.node_num = np.array(self.node_num, dtype=np.int32)
 
