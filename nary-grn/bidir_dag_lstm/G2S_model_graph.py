@@ -191,7 +191,7 @@ class ModelGraph(object):
         if options.with_char:
             feed_dict[self.nodes_chars] = batch.nodes_chars
             feed_dict[self.nodes_chars_num] = batch.nodes_chars_num
-
+        
         feed_dict[self.in_neigh_indices] = batch.in_neigh_indices
         feed_dict[self.in_neigh_hidden_indices] = batch.in_neigh_hidden_indices
         feed_dict[self.in_neigh_edges] = batch.in_neigh_edges
